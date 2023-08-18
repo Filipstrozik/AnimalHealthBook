@@ -12,55 +12,55 @@ namespace AnimalHealthBookApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ClinicsController : ControllerBase
+    public class BreedersController : ControllerBase
     {
         private readonly AHBContext _context;
 
-        public ClinicsController(AHBContext context)
+        public BreedersController(AHBContext context)
         {
             _context = context;
         }
 
-        // GET: api/Clinics
+        // GET: api/Breeders
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Clinic>>> GetClinic()
+        public async Task<ActionResult<IEnumerable<Breeder>>> GetBreeder()
         {
-          if (_context.Clinics == null)
+          if (_context.Breeder == null)
           {
               return NotFound();
           }
-            return await _context.Clinics.ToListAsync();
+            return await _context.Breeder.ToListAsync();
         }
 
-        // GET: api/Clinics/5
+        // GET: api/Breeders/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Clinic>> GetClinic(int id)
+        public async Task<ActionResult<Breeder>> GetBreeder(int id)
         {
-          if (_context.Clinics == null)
+          if (_context.Breeder == null)
           {
               return NotFound();
           }
-            var clinic = await _context.Clinics.FindAsync(id);
+            var breeder = await _context.Breeder.FindAsync(id);
 
-            if (clinic == null)
+            if (breeder == null)
             {
                 return NotFound();
             }
 
-            return clinic;
+            return breeder;
         }
 
-        // PUT: api/Clinics/5
+        // PUT: api/Breeders/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutClinic(int id, Clinic clinic)
+        public async Task<IActionResult> PutBreeder(int id, Breeder breeder)
         {
-            if (id != clinic.Id)
+            if (id != breeder.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(clinic).State = EntityState.Modified;
+            _context.Entry(breeder).State = EntityState.Modified;
 
             try
             {
@@ -68,7 +68,7 @@ namespace AnimalHealthBookApi.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ClinicExists(id))
+                if (!BreederExists(id))
                 {
                     return NotFound();
                 }
@@ -81,44 +81,44 @@ namespace AnimalHealthBookApi.Controllers
             return NoContent();
         }
 
-        // POST: api/Clinics
+        // POST: api/Breeders
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Clinic>> PostClinic(Clinic clinic)
+        public async Task<ActionResult<Breeder>> PostBreeder(Breeder breeder)
         {
-          if (_context.Clinics == null)
+          if (_context.Breeder == null)
           {
-              return Problem("Entity set 'AHBContext.Clinic'  is null.");
+              return Problem("Entity set 'AHBContext.Breeder'  is null.");
           }
-            _context.Clinics.Add(clinic);
+            _context.Breeder.Add(breeder);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetClinic", new { id = clinic.Id }, clinic);
+            return CreatedAtAction("GetBreeder", new { id = breeder.Id }, breeder);
         }
 
-        // DELETE: api/Clinics/5
+        // DELETE: api/Breeders/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteClinic(int id)
+        public async Task<IActionResult> DeleteBreeder(int id)
         {
-            if (_context.Clinics == null)
+            if (_context.Breeder == null)
             {
                 return NotFound();
             }
-            var clinic = await _context.Clinics.FindAsync(id);
-            if (clinic == null)
+            var breeder = await _context.Breeder.FindAsync(id);
+            if (breeder == null)
             {
                 return NotFound();
             }
 
-            _context.Clinics.Remove(clinic);
+            _context.Breeder.Remove(breeder);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool ClinicExists(int id)
+        private bool BreederExists(int id)
         {
-            return (_context.Clinics?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.Breeder?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

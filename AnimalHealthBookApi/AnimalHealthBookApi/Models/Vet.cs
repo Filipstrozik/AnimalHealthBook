@@ -10,5 +10,7 @@ namespace AnimalHealthBookApi.Models
 
         public string Description { get; set; }
 
+        public virtual IEnumerable<Appointment> Appointments { get; set; }
+
     }
 }

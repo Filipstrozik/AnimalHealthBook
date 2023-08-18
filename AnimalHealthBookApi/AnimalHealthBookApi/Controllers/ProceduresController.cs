@@ -12,55 +12,55 @@ namespace AnimalHealthBookApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ClinicsController : ControllerBase
+    public class ProceduresController : ControllerBase
     {
         private readonly AHBContext _context;
 
-        public ClinicsController(AHBContext context)
+        public ProceduresController(AHBContext context)
         {
             _context = context;
         }
 
-        // GET: api/Clinics
+        // GET: api/Procedures
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Clinic>>> GetClinic()
+        public async Task<ActionResult<IEnumerable<Procedure>>> GetProcedures()
         {
-          if (_context.Clinics == null)
+          if (_context.Procedures == null)
           {
               return NotFound();
           }
-            return await _context.Clinics.ToListAsync();
+            return await _context.Procedures.ToListAsync();
         }
 
-        // GET: api/Clinics/5
+        // GET: api/Procedures/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Clinic>> GetClinic(int id)
+        public async Task<ActionResult<Procedure>> GetProcedure(int id)
         {
-          if (_context.Clinics == null)
+          if (_context.Procedures == null)
           {
               return NotFound();
           }
-            var clinic = await _context.Clinics.FindAsync(id);
+            var procedure = await _context.Procedures.FindAsync(id);
 
-            if (clinic == null)
+            if (procedure == null)
             {
                 return NotFound();
             }
 
-            return clinic;
+            return procedure;
         }
 
-        // PUT: api/Clinics/5
+        // PUT: api/Procedures/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutClinic(int id, Clinic clinic)
+        public async Task<IActionResult> PutProcedure(int id, Procedure procedure)
         {
-            if (id != clinic.Id)
+            if (id != procedure.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(clinic).State = EntityState.Modified;
+            _context.Entry(procedure).State = EntityState.Modified;
 
             try
             {
@@ -68,7 +68,7 @@ namespace AnimalHealthBookApi.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ClinicExists(id))
+                if (!ProcedureExists(id))
                 {
                     return NotFound();
                 }
@@ -81,44 +81,44 @@ namespace AnimalHealthBookApi.Controllers
             return NoContent();
         }
 
-        // POST: api/Clinics
+        // POST: api/Procedures
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Clinic>> PostClinic(Clinic clinic)
+        public async Task<ActionResult<Procedure>> PostProcedure(Procedure procedure)
         {
-          if (_context.Clinics == null)
+          if (_context.Procedures == null)
           {
-              return Problem("Entity set 'AHBContext.Clinic'  is null.");
+              return Problem("Entity set 'AHBContext.Procedures'  is null.");
           }
-            _context.Clinics.Add(clinic);
+            _context.Procedures.Add(procedure);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetClinic", new { id = clinic.Id }, clinic);
+            return CreatedAtAction("GetProcedure", new { id = procedure.Id }, procedure);
         }
 
-        // DELETE: api/Clinics/5
+        // DELETE: api/Procedures/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteClinic(int id)
+        public async Task<IActionResult> DeleteProcedure(int id)
         {
-            if (_context.Clinics == null)
+            if (_context.Procedures == null)
             {
                 return NotFound();
             }
-            var clinic = await _context.Clinics.FindAsync(id);
-            if (clinic == null)
+            var procedure = await _context.Procedures.FindAsync(id);
+            if (procedure == null)
             {
                 return NotFound();
             }
 
-            _context.Clinics.Remove(clinic);
+            _context.Procedures.Remove(procedure);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool ClinicExists(int id)
+        private bool ProcedureExists(int id)
         {
-            return (_context.Clinics?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.Procedures?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

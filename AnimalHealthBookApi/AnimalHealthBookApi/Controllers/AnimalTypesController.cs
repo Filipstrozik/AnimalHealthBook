@@ -12,55 +12,55 @@ namespace AnimalHealthBookApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ClinicsController : ControllerBase
+    public class AnimalTypesController : ControllerBase
     {
         private readonly AHBContext _context;
 
-        public ClinicsController(AHBContext context)
+        public AnimalTypesController(AHBContext context)
         {
             _context = context;
         }
 
-        // GET: api/Clinics
+        // GET: api/AnimalTypes
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Clinic>>> GetClinic()
+        public async Task<ActionResult<IEnumerable<AnimalType>>> GetAnimalTypes()
         {
-          if (_context.Clinics == null)
+          if (_context.AnimalTypes == null)
           {
               return NotFound();
           }
-            return await _context.Clinics.ToListAsync();
+            return await _context.AnimalTypes.ToListAsync();
         }
 
-        // GET: api/Clinics/5
+        // GET: api/AnimalTypes/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Clinic>> GetClinic(int id)
+        public async Task<ActionResult<AnimalType>> GetAnimalType(int id)
         {
-          if (_context.Clinics == null)
+          if (_context.AnimalTypes == null)
           {
               return NotFound();
           }
-            var clinic = await _context.Clinics.FindAsync(id);
+            var animalType = await _context.AnimalTypes.FindAsync(id);
 
-            if (clinic == null)
+            if (animalType == null)
             {
                 return NotFound();
             }
 
-            return clinic;
+            return animalType;
         }
 
-        // PUT: api/Clinics/5
+        // PUT: api/AnimalTypes/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutClinic(int id, Clinic clinic)
+        public async Task<IActionResult> PutAnimalType(int id, AnimalType animalType)
         {
-            if (id != clinic.Id)
+            if (id != animalType.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(clinic).State = EntityState.Modified;
+            _context.Entry(animalType).State = EntityState.Modified;
 
             try
             {
@@ -68,7 +68,7 @@ namespace AnimalHealthBookApi.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ClinicExists(id))
+                if (!AnimalTypeExists(id))
                 {
                     return NotFound();
                 }
@@ -81,44 +81,44 @@ namespace AnimalHealthBookApi.Controllers
             return NoContent();
         }
 
-        // POST: api/Clinics
+        // POST: api/AnimalTypes
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Clinic>> PostClinic(Clinic clinic)
+        public async Task<ActionResult<AnimalType>> PostAnimalType(AnimalType animalType)
         {
-          if (_context.Clinics == null)
+          if (_context.AnimalTypes == null)
           {
-              return Problem("Entity set 'AHBContext.Clinic'  is null.");
+              return Problem("Entity set 'AHBContext.AnimalTypes'  is null.");
           }
-            _context.Clinics.Add(clinic);
+            _context.AnimalTypes.Add(animalType);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetClinic", new { id = clinic.Id }, clinic);
+            return CreatedAtAction("GetAnimalType", new { id = animalType.Id }, animalType);
         }
 
-        // DELETE: api/Clinics/5
+        // DELETE: api/AnimalTypes/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteClinic(int id)
+        public async Task<IActionResult> DeleteAnimalType(int id)
         {
-            if (_context.Clinics == null)
+            if (_context.AnimalTypes == null)
             {
                 return NotFound();
             }
-            var clinic = await _context.Clinics.FindAsync(id);
-            if (clinic == null)
+            var animalType = await _context.AnimalTypes.FindAsync(id);
+            if (animalType == null)
             {
                 return NotFound();
             }
 
-            _context.Clinics.Remove(clinic);
+            _context.AnimalTypes.Remove(animalType);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool ClinicExists(int id)
+        private bool AnimalTypeExists(int id)
         {
-            return (_context.Clinics?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.AnimalTypes?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

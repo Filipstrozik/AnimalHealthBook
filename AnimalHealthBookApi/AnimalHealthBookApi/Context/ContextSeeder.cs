@@ -57,8 +57,8 @@ namespace AnimalHealthBookApi.Context
         {
             return new Role[]
             {
-                new Role { Name = "Admin" },
-                new Role { Name = "User" },
+                new Role { Name = "Owner" },
+                new Role { Name = "Breeder" },
                 new Role { Name = "Vet" }
             };
         }
@@ -94,8 +94,28 @@ namespace AnimalHealthBookApi.Context
         {
             return new Animal[]
             {
-                new Animal { Name="Benek", AnimalTypeId=1, UserId = 1},
-                new Animal { Name="Sofia", AnimalTypeId=2, UserId = 1},
+                new Animal { 
+                    Name="Benek", 
+                    AnimalTypeId=1, 
+                    UserId = 1,
+                    BirthDate = new DateTime(2022, 3, 15),
+                    Breed = "Boston Terrier",
+                    CoatColor = "Black - White",
+                    CoatType = "Short",
+                    IsCastrated = false,
+                    MicrochipNumber = "123456789012345"
+                },
+                new Animal { 
+                    Name="Sofia",
+                    AnimalTypeId=2,
+                    UserId = 1,
+                    BirthDate = new DateTime(2022, 3, 15),
+                    Breed = "Ragdoll",
+                    CoatColor = "White",
+                    CoatType = "Long",
+                    IsCastrated = false,
+                    MicrochipNumber = "123456789011231"
+                },
             };
         }
     }
