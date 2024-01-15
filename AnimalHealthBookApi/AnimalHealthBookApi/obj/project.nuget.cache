@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Y6jmzIwzBtYdAfCclBg+tgTMhXxJTdhpmtbpco4PPtF5l5UwnWMmcU6UAwvgfUSi2RDllvR/gp8dw4va1/6etg==",
+  "dgSpecHash": "6SqOyD8bQe/88GoNSuwrE7eJlyzfYwdRwX2bi4hBEwJd3aGb37Y23Ceyx+hRYG26Z2asjRauJGwqZ86J652LKg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\filip\\Documents\\Code\\AnimalHealthBook\\AnimalHealthBookApi\\AnimalHealthBookApi\\AnimalHealthBookApi.csproj",
+  "projectFilePath": "C:\\Users\\filip\\Documents\\code\\AnimalHealthBook\\AnimalHealthBookApi\\AnimalHealthBookApi\\AnimalHealthBookApi.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\filip\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
     "C:\\Users\\filip\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",
