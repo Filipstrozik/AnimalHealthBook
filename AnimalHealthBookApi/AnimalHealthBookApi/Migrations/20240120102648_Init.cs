@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace AnimalHealthBookApi.Migrations
 {
     /// <inheritdoc />
-    public partial class AddedNewEntities : Migration
+    public partial class Init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -15,8 +15,7 @@ namespace AnimalHealthBookApi.Migrations
                 name: "AnimalTypes",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
@@ -28,8 +27,7 @@ namespace AnimalHealthBookApi.Migrations
                 name: "Clinics",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -44,8 +42,7 @@ namespace AnimalHealthBookApi.Migrations
                 name: "Roles",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
@@ -57,17 +54,20 @@ namespace AnimalHealthBookApi.Migrations
                 name: "Users",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Surname = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Lastname = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Email = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    RoleId = table.Column<int>(type: "int", nullable: false),
+                    RoleId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Discriminator = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Breeder_Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Breeder_PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Breeder_KennelName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ClinicId = table.Column<int>(type: "int", nullable: true),
+                    KennelName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ClinicId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
@@ -90,18 +90,17 @@ namespace AnimalHealthBookApi.Migrations
                 name: "Animals",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Breed = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     BirthDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CoatColor = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CoatType = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    AnimalTypeId = table.Column<int>(type: "int", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false),
+                    CoatColor = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CoatType = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    AnimalTypeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     IsCastrated = table.Column<bool>(type: "bit", nullable: false),
                     MicrochipNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    OwnerId = table.Column<int>(type: "int", nullable: true)
+                    OwnerId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -129,12 +128,10 @@ namespace AnimalHealthBookApi.Migrations
                 name: "Appointments",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    OwnerId = table.Column<int>(type: "int", nullable: false),
-                    VetId = table.Column<int>(type: "int", nullable: false),
-                    ClinicId = table.Column<int>(type: "int", nullable: false),
-                    AnimalId = table.Column<int>(type: "int", nullable: false),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    VetId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ClinicId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    AnimalId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
@@ -152,11 +149,6 @@ namespace AnimalHealthBookApi.Migrations
                         principalTable: "Clinics",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Appointments_Users_OwnerId",
-                        column: x => x.OwnerId,
-                        principalTable: "Users",
-                        principalColumn: "Id");
-                    table.ForeignKey(
                         name: "FK_Appointments_Users_VetId",
                         column: x => x.VetId,
                         principalTable: "Users",
@@ -167,12 +159,11 @@ namespace AnimalHealthBookApi.Migrations
                 name: "Procedures",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ProcedureType = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    AppointmentId = table.Column<int>(type: "int", nullable: false)
+                    AppointmentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -188,12 +179,11 @@ namespace AnimalHealthBookApi.Migrations
                 name: "Medicines",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LotNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ProcedureId = table.Column<int>(type: "int", nullable: false),
+                    ProcedureId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ExpirationDate = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
@@ -230,11 +220,6 @@ namespace AnimalHealthBookApi.Migrations
                 name: "IX_Appointments_ClinicId",
                 table: "Appointments",
                 column: "ClinicId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Appointments_OwnerId",
-                table: "Appointments",
-                column: "OwnerId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Appointments_VetId",

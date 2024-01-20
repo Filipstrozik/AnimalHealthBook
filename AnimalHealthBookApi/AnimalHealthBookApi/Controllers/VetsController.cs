@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using AnimalHealthBookApi.Context;
+using AnimalHealthBookApi.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using AnimalHealthBookApi.Context;
-using AnimalHealthBookApi.Models;
 
 namespace AnimalHealthBookApi.Controllers
 {
@@ -53,7 +48,7 @@ namespace AnimalHealthBookApi.Controllers
         // PUT: api/Vets/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutVet(int id, Vet vet)
+        public async Task<IActionResult> PutVet(Guid id, Vet vet)
         {
             if (id != vet.Id)
             {
@@ -116,7 +111,7 @@ namespace AnimalHealthBookApi.Controllers
             return NoContent();
         }
 
-        private bool VetExists(int id)
+        private bool VetExists(Guid id)
         {
             return (_context.Vet?.Any(e => e.Id == id)).GetValueOrDefault();
         }

@@ -34,7 +34,7 @@ namespace AnimalHealthBookApi.Controllers
 
         // GET: api/Clinics/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Clinic>> GetClinic(int id)
+        public async Task<ActionResult<Clinic>> GetClinic(Guid id)
         {
           if (_context.Clinics == null)
           {
@@ -53,7 +53,7 @@ namespace AnimalHealthBookApi.Controllers
         // PUT: api/Clinics/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutClinic(int id, Clinic clinic)
+        public async Task<IActionResult> PutClinic(Guid id, Clinic clinic)
         {
             if (id != clinic.Id)
             {
@@ -116,7 +116,7 @@ namespace AnimalHealthBookApi.Controllers
             return NoContent();
         }
 
-        private bool ClinicExists(int id)
+        private bool ClinicExists(Guid id)
         {
             return (_context.Clinics?.Any(e => e.Id == id)).GetValueOrDefault();
         }

@@ -53,7 +53,7 @@ namespace AnimalHealthBookApi.Controllers
         // PUT: api/Owners/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutOwner(int id, Owner owner)
+        public async Task<IActionResult> PutOwner(Guid id, Owner owner)
         {
             if (id != owner.Id)
             {
@@ -116,7 +116,7 @@ namespace AnimalHealthBookApi.Controllers
             return NoContent();
         }
 
-        private bool OwnerExists(int id)
+        private bool OwnerExists(Guid id)
         {
             return (_context.Owner?.Any(e => e.Id == id)).GetValueOrDefault();
         }

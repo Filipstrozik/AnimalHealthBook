@@ -4,7 +4,7 @@ namespace AnimalHealthBookApi.Models
 {
     public class User
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         [MinLength(3)]
         [MaxLength(50)]
@@ -13,7 +13,7 @@ namespace AnimalHealthBookApi.Models
         [Required]
         [MinLength(3)]
         [MaxLength(50)]
-        public string Surname { get; set; }
+        public string Lastname { get; set; }
 
         [Required]
         [MaxLength(50)]
@@ -22,7 +22,7 @@ namespace AnimalHealthBookApi.Models
 
         public string PasswordHash { get; set; }
 
-        public int RoleId { get; set; }
+        public Guid RoleId { get; set; }
 
         public virtual Role Role { get; set; }
 

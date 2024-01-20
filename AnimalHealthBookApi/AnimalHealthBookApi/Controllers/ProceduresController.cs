@@ -53,7 +53,7 @@ namespace AnimalHealthBookApi.Controllers
         // PUT: api/Procedures/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutProcedure(int id, Procedure procedure)
+        public async Task<IActionResult> PutProcedure(Guid id, Procedure procedure)
         {
             if (id != procedure.Id)
             {
@@ -116,7 +116,7 @@ namespace AnimalHealthBookApi.Controllers
             return NoContent();
         }
 
-        private bool ProcedureExists(int id)
+        private bool ProcedureExists(Guid id)
         {
             return (_context.Procedures?.Any(e => e.Id == id)).GetValueOrDefault();
         }

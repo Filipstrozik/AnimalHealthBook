@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using AnimalHealthBookApi.Context;
+using AnimalHealthBookApi.Dto;
+using AnimalHealthBookApi.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using AnimalHealthBookApi.Context;
-using AnimalHealthBookApi.Models;
 
 namespace AnimalHealthBookApi.Controllers
 {
@@ -52,13 +48,37 @@ namespace AnimalHealthBookApi.Controllers
 
         // PUT: api/Animals/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutAnimal(int id, Animal animal)
+        [HttpPut]
+        public async Task<IActionResult> PutAnimal(AnimalEditDto animalDto)
         {
-            if (id != animal.Id)
+
+            if(_context.Animals == null)
+            {
+                return NotFound();
+            }
+
+            if(animalDto == null)
             {
                 return BadRequest();
             }
+
+            if(!AnimalExists(animalDto.Id))
+            {
+                return NotFound();
+            }
+
+            Animal animal = await _context.Animals.FindAsync(animalDto.Id);
+
+            animal.Name = animalDto.Name;
+            animal.Breed = animalDto.Breed;
+            animal.AnimalGenderId = animalDto.AnimalGenderId;
+            animal.BirthDate = animalDto.BirthDate;
+            animal.CoatColor = animalDto.CoatColor;
+            animal.CoatType = animalDto.CoatType;
+            animal.AnimalTypeId = animalDto.AnimalTypeId;
+            animal.UserId = animalDto.UserId;
+            animal.IsCastrated = animalDto.IsCastrated;
+            animal.MicrochipNumber = animalDto.MicrochipNumber;
 
             _context.Entry(animal).State = EntityState.Modified;
 
@@ -68,7 +88,7 @@ namespace AnimalHealthBookApi.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!AnimalExists(id))
+                if (!AnimalExists(animalDto.Id))
                 {
                     return NotFound();
                 }
@@ -78,18 +98,38 @@ namespace AnimalHealthBookApi.Controllers
                 }
             }
 
-            return NoContent();
+            return Ok(animal);
         }
 
         // POST: api/Animals
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Animal>> PostAnimal(Animal animal)
+        public async Task<ActionResult<Animal>> PostAnimal(AnimalCreationDto animalDto)
         {
-          if (_context.Animals == null)
-          {
-              return Problem("Entity set 'AHBContext.Animals'  is null.");
-          }
+            if (_context.Animals == null)
+            {
+                return Problem("Entity set 'AHBContext.Animals'  is null.");
+            }
+
+            if (animalDto == null)
+            {
+                return BadRequest();
+            }
+
+            Animal animal = new Animal()
+            {
+                Name = animalDto.Name,
+                Breed = animalDto.Breed,
+                BirthDate = animalDto.BirthDate,
+                CoatColor = animalDto.CoatColor,
+                CoatType = animalDto.CoatType,
+                AnimalTypeId = animalDto.AnimalTypeId,
+                UserId = animalDto.UserId,
+                IsCastrated = animalDto.IsCastrated,
+                MicrochipNumber = animalDto.MicrochipNumber
+            };
+
+
             _context.Animals.Add(animal);
             await _context.SaveChangesAsync();
 
@@ -98,7 +138,7 @@ namespace AnimalHealthBookApi.Controllers
 
         // DELETE: api/Animals/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteAnimal(int id)
+        public async Task<IActionResult> DeleteAnimal(Guid id)
         {
             if (_context.Animals == null)
             {
@@ -116,7 +156,7 @@ namespace AnimalHealthBookApi.Controllers
             return NoContent();
         }
 
-        private bool AnimalExists(int id)
+        private bool AnimalExists(Guid id)
         {
             return (_context.Animals?.Any(e => e.Id == id)).GetValueOrDefault();
         }

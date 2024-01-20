@@ -38,12 +38,6 @@ namespace AnimalHealthBookApi.Context
                 .IsRequired();
 
             modelBuilder.Entity<Appointment>()
-                .HasOne(a => a.Owner)
-                .WithMany(o => o.Appointments)
-                .HasForeignKey(a => a.OwnerId)
-                .OnDelete(DeleteBehavior.NoAction);
-
-            modelBuilder.Entity<Appointment>()
                 .HasOne(a => a.Vet)
                 .WithMany(v => v.Appointments)
                 .HasForeignKey(a => a.VetId)
@@ -94,9 +88,11 @@ namespace AnimalHealthBookApi.Context
                 .HasForeignKey(m => m.ProcedureId)
                 .OnDelete(DeleteBehavior.NoAction);
 
-
-
-
+            modelBuilder.Entity<Clinic>()
+                .HasMany(c => c.Appointments)
+                .WithOne(a => a.Clinic)
+                .HasForeignKey(a => a.ClinicId)
+                .OnDelete(DeleteBehavior.NoAction);
         }
 
 

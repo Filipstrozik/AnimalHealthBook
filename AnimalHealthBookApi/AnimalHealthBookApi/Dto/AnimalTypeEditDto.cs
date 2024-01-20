@@ -1,6 +1,6 @@
-﻿namespace AnimalHealthBookApi.Models
+﻿namespace AnimalHealthBookApi.Dto
 {
-    public class Role
+    public class AnimalTypeEditDto
     {
         public Guid Id { get; set; }
         public string Name { get; set; }

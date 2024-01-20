@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using AnimalHealthBookApi.Context;
 using AnimalHealthBookApi.Models;
+using AnimalHealthBookApi.Dto;
 
 namespace AnimalHealthBookApi.Controllers
 {
@@ -34,7 +35,7 @@ namespace AnimalHealthBookApi.Controllers
 
         // GET: api/AnimalTypes/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<AnimalType>> GetAnimalType(int id)
+        public async Task<ActionResult<AnimalType>> GetAnimalType(Guid id)
         {
           if (_context.AnimalTypes == null)
           {
@@ -52,13 +53,28 @@ namespace AnimalHealthBookApi.Controllers
 
         // PUT: api/AnimalTypes/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutAnimalType(int id, AnimalType animalType)
+        [HttpPut]
+        public async Task<IActionResult> PutAnimalType(AnimalTypeEditDto animalTypeDto)
         {
-            if (id != animalType.Id)
+
+            if(_context.AnimalTypes == null)
+            {
+                return NotFound();
+            }
+
+            if(animalTypeDto == null)
             {
                 return BadRequest();
             }
+
+            if (!AnimalTypeExists(animalTypeDto.Id))
+            {
+                return NotFound();
+            }
+
+            AnimalType animalType = _context.AnimalTypes.Find(animalTypeDto.Id);
+
+            animalType.Name = animalTypeDto.Name;
 
             _context.Entry(animalType).State = EntityState.Modified;
 
@@ -68,7 +84,7 @@ namespace AnimalHealthBookApi.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!AnimalTypeExists(id))
+                if (!AnimalTypeExists(animalTypeDto.Id))
                 {
                     return NotFound();
                 }
@@ -84,12 +100,23 @@ namespace AnimalHealthBookApi.Controllers
         // POST: api/AnimalTypes
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<AnimalType>> PostAnimalType(AnimalType animalType)
+        public async Task<ActionResult<AnimalType>> PostAnimalType(AnimalTypeCreationDto animalTypeDto)
         {
-          if (_context.AnimalTypes == null)
-          {
-              return Problem("Entity set 'AHBContext.AnimalTypes'  is null.");
-          }
+              if (_context.AnimalTypes == null)
+              {
+                  return Problem("Entity set 'AHBContext.AnimalTypes'  is null.");
+              }
+
+            if (animalTypeDto == null)
+            {
+                return BadRequest();
+            }
+
+            var animalType = new AnimalType
+            {
+                Name = animalTypeDto.Name
+            };
+
             _context.AnimalTypes.Add(animalType);
             await _context.SaveChangesAsync();
 
@@ -116,7 +143,7 @@ namespace AnimalHealthBookApi.Controllers
             return NoContent();
         }
 
-        private bool AnimalTypeExists(int id)
+        private bool AnimalTypeExists(Guid id)
         {
             return (_context.AnimalTypes?.Any(e => e.Id == id)).GetValueOrDefault();
         }

@@ -53,7 +53,7 @@ namespace AnimalHealthBookApi.Controllers
         // PUT: api/Appointments/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutAppointment(int id, Appointment appointment)
+        public async Task<IActionResult> PutAppointment(Guid id, Appointment appointment)
         {
             if (id != appointment.Id)
             {
@@ -116,7 +116,7 @@ namespace AnimalHealthBookApi.Controllers
             return NoContent();
         }
 
-        private bool AppointmentExists(int id)
+        private bool AppointmentExists(Guid id)
         {
             return (_context.Appointments?.Any(e => e.Id == id)).GetValueOrDefault();
         }

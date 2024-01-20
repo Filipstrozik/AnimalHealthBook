@@ -24,14 +24,12 @@ namespace AnimalHealthBookApi.Migrations
 
             modelBuilder.Entity("AnimalHealthBookApi.Models.Animal", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("uniqueidentifier");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("AnimalTypeId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("AnimalTypeId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("BirthDate")
                         .HasColumnType("datetime2");
@@ -41,11 +39,9 @@ namespace AnimalHealthBookApi.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CoatColor")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CoatType")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsCastrated")
@@ -59,11 +55,11 @@ namespace AnimalHealthBookApi.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("OwnerId")
-                        .HasColumnType("int");
+                    b.Property<Guid?>("OwnerId")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
@@ -78,11 +74,9 @@ namespace AnimalHealthBookApi.Migrations
 
             modelBuilder.Entity("AnimalHealthBookApi.Models.AnimalType", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -95,17 +89,15 @@ namespace AnimalHealthBookApi.Migrations
 
             modelBuilder.Entity("AnimalHealthBookApi.Models.Appointment", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("uniqueidentifier");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    b.Property<Guid>("AnimalId")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("AnimalId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ClinicId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("ClinicId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
@@ -113,19 +105,14 @@ namespace AnimalHealthBookApi.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("OwnerId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("VetId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("VetId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
                     b.HasIndex("AnimalId");
 
                     b.HasIndex("ClinicId");
-
-                    b.HasIndex("OwnerId");
 
                     b.HasIndex("VetId");
 
@@ -134,11 +121,9 @@ namespace AnimalHealthBookApi.Migrations
 
             modelBuilder.Entity("AnimalHealthBookApi.Models.Clinic", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -163,11 +148,9 @@ namespace AnimalHealthBookApi.Migrations
 
             modelBuilder.Entity("AnimalHealthBookApi.Models.Medicine", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
@@ -182,8 +165,8 @@ namespace AnimalHealthBookApi.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ProcedureId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("ProcedureId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
@@ -194,14 +177,12 @@ namespace AnimalHealthBookApi.Migrations
 
             modelBuilder.Entity("AnimalHealthBookApi.Models.Procedure", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("uniqueidentifier");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("AppointmentId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("AppointmentId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
@@ -223,11 +204,9 @@ namespace AnimalHealthBookApi.Migrations
 
             modelBuilder.Entity("AnimalHealthBookApi.Models.Role", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -240,17 +219,20 @@ namespace AnimalHealthBookApi.Migrations
 
             modelBuilder.Entity("AnimalHealthBookApi.Models.User", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Discriminator")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Lastname")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
@@ -264,13 +246,8 @@ namespace AnimalHealthBookApi.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("RoleId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Surname")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                    b.Property<Guid>("RoleId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
@@ -283,12 +260,45 @@ namespace AnimalHealthBookApi.Migrations
                     b.UseTphMappingStrategy();
                 });
 
-            modelBuilder.Entity("AnimalHealthBookApi.Models.Owner", b =>
+            modelBuilder.Entity("AnimalHealthBookApi.Models.Breeder", b =>
                 {
                     b.HasBaseType("AnimalHealthBookApi.Models.User");
 
                     b.Property<string>("Address")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("KennelName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.ToTable("Users", t =>
+                        {
+                            t.Property("Address")
+                                .HasColumnName("Breeder_Address");
+
+                            t.Property("KennelName")
+                                .HasColumnName("Breeder_KennelName");
+
+                            t.Property("PhoneNumber")
+                                .HasColumnName("Breeder_PhoneNumber");
+                        });
+
+                    b.HasDiscriminator().HasValue("Breeder");
+                });
+
+            modelBuilder.Entity("AnimalHealthBookApi.Models.Owner", b =>
+                {
+                    b.HasBaseType("AnimalHealthBookApi.Models.User");
+
+                    b.Property<string>("Address")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("KennelName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhoneNumber")
@@ -302,8 +312,8 @@ namespace AnimalHealthBookApi.Migrations
                 {
                     b.HasBaseType("AnimalHealthBookApi.Models.User");
 
-                    b.Property<int>("ClinicId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("ClinicId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -351,12 +361,6 @@ namespace AnimalHealthBookApi.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("AnimalHealthBookApi.Models.Owner", "Owner")
-                        .WithMany("Appointments")
-                        .HasForeignKey("OwnerId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
                     b.HasOne("AnimalHealthBookApi.Models.Vet", "Vet")
                         .WithMany("Appointments")
                         .HasForeignKey("VetId")
@@ -366,8 +370,6 @@ namespace AnimalHealthBookApi.Migrations
                     b.Navigation("Animal");
 
                     b.Navigation("Clinic");
-
-                    b.Navigation("Owner");
 
                     b.Navigation("Vet");
                 });
@@ -441,8 +443,6 @@ namespace AnimalHealthBookApi.Migrations
             modelBuilder.Entity("AnimalHealthBookApi.Models.Owner", b =>
                 {
                     b.Navigation("Animals");
-
-                    b.Navigation("Appointments");
                 });
 
             modelBuilder.Entity("AnimalHealthBookApi.Models.Vet", b =>

@@ -53,7 +53,7 @@ namespace AnimalHealthBookApi.Controllers
         // PUT: api/Breeders/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutBreeder(int id, Breeder breeder)
+        public async Task<IActionResult> PutBreeder(Guid id, Breeder breeder)
         {
             if (id != breeder.Id)
             {
@@ -116,7 +116,7 @@ namespace AnimalHealthBookApi.Controllers
             return NoContent();
         }
 
-        private bool BreederExists(int id)
+        private bool BreederExists(Guid id)
         {
             return (_context.Breeder?.Any(e => e.Id == id)).GetValueOrDefault();
         }

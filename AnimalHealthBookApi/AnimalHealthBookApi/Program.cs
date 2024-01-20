@@ -35,7 +35,7 @@ var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
     var seeder = scope.ServiceProvider.GetRequiredService<ContextSeeder>();
-    seeder.Seed();
+    //seeder.Seed();
 }
 
 app.UseCors(options => {

@@ -2,7 +2,7 @@
 {
     public class Medicine
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         public string Name { get; set; } = default!;
 
@@ -10,7 +10,7 @@
 
         public string? LotNumber { get; set; }
 
-        public int ProcedureId { get; set; }
+        public Guid ProcedureId { get; set; }
         public DateTime? ExpirationDate { get; set; }
 
         public virtual Procedure Procedure { get; set; }
