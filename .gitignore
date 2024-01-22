@@ -76,4 +76,13 @@ nx.lock
 # TypeScript
 *.tsbuildinfo
 
+# C# .NET
+*.csproj
+*.sln
+*.dll
+*.exe
+*.nuget
+*.cache
+*.userprefs
+
 # End of .gitignore

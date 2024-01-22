@@ -1,15 +1,12 @@
 ﻿using AnimalHealthBookApi.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace AnimalHealthBookApi.Context
 {
-    public class AHBContext : DbContext
+    public class AHBContext(DbContextOptions<AHBContext> options) : IdentityDbContext<IdentityUser>(options)
     {
-        public AHBContext(DbContextOptions<AHBContext> options)
-            : base(options)
-        {
-            
-        }
         public DbSet<Animal> Animals { get; set; }
 
         public DbSet<AnimalType> AnimalTypes { get; set; }
@@ -33,6 +30,7 @@ namespace AnimalHealthBookApi.Context
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
+            base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Role>()
                 .Property(r => r.Name)
                 .IsRequired();
@@ -93,6 +91,9 @@ namespace AnimalHealthBookApi.Context
                 .WithOne(a => a.Clinic)
                 .HasForeignKey(a => a.ClinicId)
                 .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<User>()
+                .HasKey(u => u.Id);
         }
 
 

@@ -22,16 +22,15 @@
 
         public virtual AnimalType AnimalType { get; set; }
 
-        // change to many to many, or make another for legal owner
-        public Guid UserId { get; set; }
-
-        public virtual User User { get; set; }
+        public virtual IEnumerable<User> Users { get; set; }
 
         public bool IsCastrated { get; set; }
 
         public string? MicrochipNumber { get; set; }
 
         public virtual IEnumerable<Appointment> Appointments { get; set; }
+
+        public virtual IEnumerable<HealthNote> HealthNotes { get; set; }
 
     }
 }

@@ -97,7 +97,6 @@ namespace AnimalHealthBookApi.Context
                 new Animal { 
                     Name="Benek", 
                     AnimalTypeId=new Guid("2443c60e-4076-4208-becf-e254c19268a2"), 
-                    UserId = new Guid("2443c60e-4076-4208-becf-e254c19268a1"),
                     BirthDate = new DateTime(2022, 3, 15),
                     Breed = "Boston Terrier",
                     CoatColor = "Black - White",
@@ -108,7 +107,6 @@ namespace AnimalHealthBookApi.Context
                 new Animal { 
                     Name="Sofia",
                     AnimalTypeId=new Guid("2443c60e-4076-4208-becf-e254c19268a3"),
-                    UserId = new Guid("d105e465-0426-49c4-980e-fdfe2eac2478"),
                     BirthDate = new DateTime(2022, 3, 15),
                     Breed = "Ragdoll",
                     CoatColor = "White",

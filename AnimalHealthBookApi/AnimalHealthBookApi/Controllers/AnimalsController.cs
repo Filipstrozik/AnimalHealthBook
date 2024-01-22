@@ -76,7 +76,6 @@ namespace AnimalHealthBookApi.Controllers
             animal.CoatColor = animalDto.CoatColor;
             animal.CoatType = animalDto.CoatType;
             animal.AnimalTypeId = animalDto.AnimalTypeId;
-            animal.UserId = animalDto.UserId;
             animal.IsCastrated = animalDto.IsCastrated;
             animal.MicrochipNumber = animalDto.MicrochipNumber;
 
@@ -124,7 +123,6 @@ namespace AnimalHealthBookApi.Controllers
                 CoatColor = animalDto.CoatColor,
                 CoatType = animalDto.CoatType,
                 AnimalTypeId = animalDto.AnimalTypeId,
-                UserId = animalDto.UserId,
                 IsCastrated = animalDto.IsCastrated,
                 MicrochipNumber = animalDto.MicrochipNumber
             };

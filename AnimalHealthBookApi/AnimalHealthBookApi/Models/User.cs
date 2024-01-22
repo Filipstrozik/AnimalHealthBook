@@ -1,9 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
 
 namespace AnimalHealthBookApi.Models
 {
-    public class User
+    public class User : IdentityUser<Guid>
     {
+        [Key]
         public Guid Id { get; set; }
 
         [MinLength(3)]

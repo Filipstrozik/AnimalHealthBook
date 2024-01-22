@@ -1,4 +1,7 @@
 using AnimalHealthBookApi.Context;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
 
@@ -11,8 +14,23 @@ builder.Services.AddControllers().AddJsonOptions(options =>
     options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
 });
 
+builder.Services.AddAuthentication().AddBearerToken(IdentityConstants.BearerScheme);
+builder.Services.AddAuthorization(options =>
+{
+    options.FallbackPolicy = new AuthorizationPolicyBuilder()
+        .RequireAuthenticatedUser()
+        .Build();
+});
+
 builder.Services.AddDbContext<AHBContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("AHB")));
+
+
+builder.Services.AddIdentityCore<IdentityUser>(options =>
+    options.SignIn.RequireConfirmedAccount = true        
+    ).AddRoles<IdentityRole>()
+    .AddEntityFrameworkStores<AHBContext>()
+    .AddApiEndpoints();
 
 builder.Services.AddCors(options =>
 {
@@ -56,5 +74,7 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.MapIdentityApi<IdentityUser>();
 
 app.Run();
