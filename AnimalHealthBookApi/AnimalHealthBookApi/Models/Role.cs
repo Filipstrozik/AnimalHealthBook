@@ -1,8 +1,9 @@
-﻿namespace AnimalHealthBookApi.Models
+﻿using Microsoft.AspNetCore.Identity;
+
+namespace AnimalHealthBookApi.Models
 {
-    public class Role
+    public class Role : IdentityRole<Guid>
     {
-        public Guid Id { get; set; }
-        public string Name { get; set; }
+        public string Description { get; set; }
     }
 }

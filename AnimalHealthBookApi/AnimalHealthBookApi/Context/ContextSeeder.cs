@@ -76,8 +76,8 @@ namespace AnimalHealthBookApi.Context
         {
             return new User[]
             {
-                new User { Id=new Guid("2443c60e-4076-4208-becf-e254c19268a1"), Name = "Jan", Email="jan.nowak@wp.pl", Lastname="Nowak", RoleId=new Guid("ebda0a56-6ddb-447d-ae99-58e4e296a57b") , PasswordHash="test1" },
-                new Vet { Id=new Guid("210d9643-56e0-407b-ba86-3778205bd93b"), Name = "Jakub", Email="kuba.waran@wp.pl", Lastname="Waran", RoleId=new Guid("39a39cd5-f6f3-4293-b95a-7ac5db398148") , PasswordHash="test2", Description="Jestem wterynarzem", ClinicId=new Guid("1e6e1e40-3411-4575-9daf-181d1ea70cd9")},
+                new User { Id=new Guid("2443c60e-4076-4208-becf-e254c19268a1"), Email="jan.nowak@wp.pl", PasswordHash="test1" },
+                new Vet { Id=new Guid("210d9643-56e0-407b-ba86-3778205bd93b"), Email="kuba.waran@wp.pl",  PasswordHash="test2", Description="Jestem wterynarzem", ClinicId=new Guid("1e6e1e40-3411-4575-9daf-181d1ea70cd9")},
             };
         }
 

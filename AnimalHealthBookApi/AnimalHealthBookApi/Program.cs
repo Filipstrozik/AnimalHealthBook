@@ -1,8 +1,11 @@
 using AnimalHealthBookApi.Context;
+using AnimalHealthBookApi.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.Filters;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,21 +17,15 @@ builder.Services.AddControllers().AddJsonOptions(options =>
     options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
 });
 
-builder.Services.AddAuthentication().AddBearerToken(IdentityConstants.BearerScheme);
-builder.Services.AddAuthorization(options =>
-{
-    options.FallbackPolicy = new AuthorizationPolicyBuilder()
-        .RequireAuthenticatedUser()
-        .Build();
-});
 
 builder.Services.AddDbContext<AHBContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("AHB")));
 
 
-builder.Services.AddIdentityCore<IdentityUser>(options =>
-    options.SignIn.RequireConfirmedAccount = true        
-    ).AddRoles<IdentityRole>()
+builder.Services.AddAuthentication().AddBearerToken(IdentityConstants.BearerScheme);
+
+
+builder.Services.AddIdentity<User, Role>()
     .AddEntityFrameworkStores<AHBContext>()
     .AddApiEndpoints();
 
@@ -46,7 +43,17 @@ builder.Services.AddCors(options =>
 builder.Services.AddScoped<ContextSeeder>();
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(options =>
+{
+    options.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
+    {
+        In = ParameterLocation.Header,
+        Name = "Authorization",
+        Type = SecuritySchemeType.ApiKey,
+    });
+
+    options.OperationFilter<SecurityRequirementsOperationFilter>();
+});
 
 var app = builder.Build();
 
@@ -75,6 +82,6 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.MapIdentityApi<IdentityUser>();
+app.MapIdentityApi<User>();
 
 app.Run();

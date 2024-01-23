@@ -40,6 +40,11 @@ ipch/
 [Dd]ebug/
 [Rr]elease/
 Ankh.NoLoad
+*.project.nuget.cache
+./AnimalHealthBookApi/AnimalHealthBookApi/obj
+./AnimalHealthBookApi/AnimalHealthBookApi/bin
+
+
 
 # .NET Core
 project.lock.json

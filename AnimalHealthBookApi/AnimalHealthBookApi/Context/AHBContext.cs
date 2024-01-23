@@ -5,8 +5,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AnimalHealthBookApi.Context
 {
-    public class AHBContext(DbContextOptions<AHBContext> options) : IdentityDbContext<IdentityUser>(options)
+    public class AHBContext : IdentityDbContext<User, Role, Guid>
     {
+
+        public AHBContext(DbContextOptions<AHBContext> options) : base(options)
+        {
+
+        }
+
         public DbSet<Animal> Animals { get; set; }
 
         public DbSet<AnimalType> AnimalTypes { get; set; }
@@ -31,6 +37,7 @@ namespace AnimalHealthBookApi.Context
         {
 
             base.OnModelCreating(modelBuilder);
+
             modelBuilder.Entity<Role>()
                 .Property(r => r.Name)
                 .IsRequired();
