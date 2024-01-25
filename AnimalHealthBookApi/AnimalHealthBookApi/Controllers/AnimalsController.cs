@@ -25,7 +25,11 @@ namespace AnimalHealthBookApi.Controllers
           {
               return NotFound();
           }
-            return await _context.Animals.ToListAsync();
+            return await _context.Animals
+                .Include(a => a.AnimalType)
+                .Include(a => a.HealthNotes)
+                .Include(a => a.Appointments)
+                .ToListAsync();
         }
 
         // GET: api/Animals/5

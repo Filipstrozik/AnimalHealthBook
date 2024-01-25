@@ -13,6 +13,8 @@ namespace AnimalHealthBookApi.Context
 
         }
 
+        public DbSet<HealthNote> HealthNotes { get; set; }
+
         public DbSet<Animal> Animals { get; set; }
 
         public DbSet<AnimalType> AnimalTypes { get; set; }
@@ -74,6 +76,17 @@ namespace AnimalHealthBookApi.Context
                 .WithOne(a => a.Animal)
                 .HasForeignKey(a => a.AnimalId)
                 .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<Animal>()
+                .HasMany(a => a.HealthNotes)
+                .WithOne(h => h.Animal)
+                .HasForeignKey(h => h.AnimalId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+
+            modelBuilder.Entity<Animal>()
+                .HasMany(a => a.Users)
+                .WithMany(u => u.Animals);
 
             modelBuilder.Entity<Vet>()
                 .HasMany(v => v.Appointments)

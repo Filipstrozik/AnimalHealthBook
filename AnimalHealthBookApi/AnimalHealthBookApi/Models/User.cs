@@ -5,5 +5,7 @@ namespace AnimalHealthBookApi.Models
 {
     public class User : IdentityUser<Guid>
     {
+
+        public IEnumerable<Animal> Animals { get; set; }
     }
 }
