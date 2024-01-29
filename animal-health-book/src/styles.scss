@@ -12,8 +12,8 @@
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
-$animal-health-book-primary: mat.define-palette(mat.$indigo-palette);
-$animal-health-book-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+$animal-health-book-primary: mat.define-palette(mat.$cyan-palette);
+$animal-health-book-accent: mat.define-palette(mat.$green-palette, A200, A100, A400);
 
 // The warn palette is optional (defaults to red).
 $animal-health-book-warn: mat.define-palette(mat.$red-palette);
@@ -21,6 +21,14 @@ $animal-health-book-warn: mat.define-palette(mat.$red-palette);
 // Create the theme object. A theme consists of configurations for individual
 // theming systems such as "color" or "typography".
 $animal-health-book-theme: mat.define-light-theme((
+  color: (
+    primary: $animal-health-book-primary,
+    accent: $animal-health-book-accent,
+    warn: $animal-health-book-warn,
+  )
+));
+
+$animal-health-book-dark-theme: mat.define-dark-theme((
   color: (
     primary: $animal-health-book-primary,
     accent: $animal-health-book-accent,

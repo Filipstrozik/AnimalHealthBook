@@ -1,18 +1,31 @@
-<mat-drawer-container class="example-container" autosize>
-  <mat-drawer #drawer class="example-sidenav" mode="side">
-    <p>Auto-resizing sidenav</p>
-    @if (showFiller) {
-      <p>Lorem, ipsum dolor sit amet consectetur.</p>
-    }
-    <button (click)="showFiller = !showFiller" mat-raised-button>
-      Toggle extra text
-    </button>
-  </mat-drawer>
+<mat-toolbar class="mat-toolbar" color="primary">
+  <button mat-icon-button (click)="sidenav.toggle()">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span>Animal Health Book</span>
+  <span class="example-spacer"></span>
+  <button mat-icon-button>
+    <mat-icon>more_vert</mat-icon>
+  </button>
+</mat-toolbar>
 
-  <div class="example-sidenav-content">
-    <button type="button" mat-button (click)="drawer.toggle()">
-      Toggle sidenav
-    </button>
-  </div>
-
-</mat-drawer-container>
+<mat-sidenav-container class="example-container">
+  <mat-sidenav #sidenav [mode]="isMobile ? 'over' : 'side'" opened="true" class="example-sidenav" color="primary">
+    <mat-nav-list class="button-list">
+      <button mat-button color="accent"><mat-icon>home</mat-icon>Home</button>
+      <button mat-button color="accent" routerLink="/animals"
+        routerLinkActive="active"><mat-icon>pets</mat-icon>Animals</button>
+      <button mat-button color="accent" routerLink="/owners"
+        routerLinkActive="active"><mat-icon>person</mat-icon>Owners</button>
+      <button mat-button color="accent" routerLink="/vets"
+        routerLinkActive="active"><mat-icon>local_hospital</mat-icon>Vets</button>
+      <button mat-button color="accent" routerLink="/treatments"
+        routerLinkActive="active"><mat-icon>healing</mat-icon>Treatments</button>
+      <button mat-button color="accent" routerLink="/users"
+        routerLinkActive="active"><mat-icon>people</mat-icon>Users</button>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content class="example-sidenav-content">
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
