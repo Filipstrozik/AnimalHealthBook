@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using AnimalHealthBookApi.Context;
 using AnimalHealthBookApi.Models;
+using Microsoft.AspNetCore.Identity;
+using AnimalHealthBookApi.Dto;
 
 namespace AnimalHealthBookApi.Controllers
 {
@@ -15,110 +17,74 @@ namespace AnimalHealthBookApi.Controllers
     public class UsersController : ControllerBase
     {
         private readonly AHBContext _context;
+        private readonly SignInManager<User> _signInManager;
+        private readonly UserManager<User> _userManager;
 
-        public UsersController(AHBContext context)
+
+        public UsersController(
+            AHBContext context, 
+            SignInManager<User> signInManager,
+            UserManager<User> userManager
+            )
         {
             _context = context;
+            _signInManager = signInManager;
+            _userManager = userManager;
         }
 
-        // GET: api/Users
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> GetUsers()
+        // POST register user, override the same default implementation
+        [HttpPost("register")]
+        public async Task<ActionResult<User>> Register(UserCreationDto userDto)
         {
-          if (_context.Users == null)
-          {
-              return NotFound();
-          }
-            return await _context.Users.ToListAsync();
+            var user = new User
+            {
+                FirstName = userDto.FirstName,
+                LastName = userDto.LastName,
+                Email = userDto.Email,
+                UserName = userDto.Email,
+            };
+
+
+            var result = await _userManager.CreateAsync(user, userDto.Password);
+            if (!result.Succeeded)
+            {
+                return BadRequest(result.Errors);
+            }
+
+            //return a user object with jwt token
+
+            var roleResult = await _userManager.AddToRoleAsync(user, "User");
+            if (!roleResult.Succeeded)
+            {
+                return BadRequest(result.Errors);
+            }
+
+
+            //return token  
+
+
+
+
+
+            return Ok();
         }
 
-        // GET: api/Users/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<User>> GetUser(int id)
+        [HttpPost("login")]
+        public async Task<ActionResult<User>> Login(UserLoginDto userDto)
         {
-          if (_context.Users == null)
-          {
-              return NotFound();
-          }
-            var user = await _context.Users.FindAsync(id);
-
+            var user = await _userManager.FindByEmailAsync(userDto.Email);
             if (user == null)
             {
-                return NotFound();
+                return BadRequest("Invalid email or password");
             }
-
-            return user;
+            var result = await _signInManager.CheckPasswordSignInAsync(user, userDto.Password, false);
+            if (!result.Succeeded)
+            {
+                return BadRequest("Invalid email or password");
+            }
+            return Ok();
         }
 
-        // PUT: api/Users/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutUser(Guid id, User user)
-        {
-            if (id != user.Id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(user).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!UserExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
-
-        // POST: api/Users
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<User>> PostUser(User user)
-        {
-          if (_context.Users == null)
-          {
-              return Problem("Entity set 'AHBContext.Users'  is null.");
-          }
-            _context.Users.Add(user);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetUser", new { id = user.Id }, user);
-        }
-
-        // DELETE: api/Users/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteUser(int id)
-        {
-            if (_context.Users == null)
-            {
-                return NotFound();
-            }
-            var user = await _context.Users.FindAsync(id);
-            if (user == null)
-            {
-                return NotFound();
-            }
-
-            _context.Users.Remove(user);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
-        }
-
-        private bool UserExists(Guid id)
-        {
-            return (_context.Users?.Any(e => e.Id == id)).GetValueOrDefault();
-        }
+        
     }
 }

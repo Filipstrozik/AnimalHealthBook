@@ -13,7 +13,9 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatListModule } from '@angular/material/list';
 import { MatCardModule } from '@angular/material/card';
 import { AnimalCardComponent } from './shared/components/animal-card/animal-card.component';
-
+import { AnimalDetailsComponent } from './modules/pages/animal-details/animal-details.component';
+import {MatRippleModule} from '@angular/material/core';
+import { MatMenuModule } from '@angular/material/menu';
 @NgModule({
   declarations: [
     AppComponent
@@ -30,6 +32,9 @@ import { AnimalCardComponent } from './shared/components/animal-card/animal-card
     MatListModule,
     MatCardModule,
     AnimalCardComponent,
+    AnimalDetailsComponent,
+    MatRippleModule,
+    MatMenuModule,
   ],
   providers: [
     {

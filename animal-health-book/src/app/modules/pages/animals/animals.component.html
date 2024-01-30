@@ -1,0 +1,4 @@
+<h1>My Animals</h1>
+<div *ngFor="let animal of [1,2,3,4], let i = index">
+    <app-animal-card [routerLink]="['/animal-details', i]" ></app-animal-card>
+</div>

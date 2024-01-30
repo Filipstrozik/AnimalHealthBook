@@ -31,6 +31,9 @@ export class AppComponent {
   onInit() {
   }
 
+  changeTheme(theme: string) {
+    
+  }
 
   title = 'animal-health-book';
   showFiller = false;

@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Animal } from '../models/animal';
 import { HealthNote } from '../models/healthNote';
+import { RegisterDto } from '../dto/registerDto';
+import { LoginDto } from '../dto/loginDto';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +12,16 @@ import { HealthNote } from '../models/healthNote';
 export class ApiRequestService {
   constructor(private http: HttpClient) {
   }
-  
+  //authentication
+
+  login(data: LoginDto): Observable<any> {
+    return this.http.post<any>('/api/users/login', data);
+  }
+
+  register(data: RegisterDto): Observable<any> {
+    return this.http.post<any>('/api/users/register', data);
+  }
+
   // animals
 
   getAnimals(): Observable<Animal[]> {

@@ -8,7 +8,6 @@ export class AuthInterceptor implements HttpInterceptor {
     req = req.clone({
       url: url + req.url
     });
-    debugger
     // set headers
     const headers = req.headers.set('Content-Type', 'application/json');
     req = req.clone({
