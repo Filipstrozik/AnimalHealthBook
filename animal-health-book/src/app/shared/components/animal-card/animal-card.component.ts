@@ -1,8 +1,9 @@
-import { Component, inject } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatRippleModule } from '@angular/material/core';
 import { ActivatedRoute } from '@angular/router';
+import { Animal } from '../../models/animal';
 
 @Component({
   selector: 'app-animal-card',
@@ -17,4 +18,10 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class AnimalCardComponent {
 
+  @Input() animal: Animal = null as any;
+
+  constructor(
+    private route: ActivatedRoute
+  ) { }
+  
 }

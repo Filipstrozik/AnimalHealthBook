@@ -1,1 +1,28 @@
-<h1>Benek{{animalId}}</h1>
+<div class="animal-details-container" *ngIf="animal">
+    <h1>{{animal.name}}</h1>
+    <h2>{{animal.breed}}</h2>
+    <h3>{{animal.birthDate | date}}</h3>
+    <p>{{animal.animalGender}}</p>
+    <p>{{animal.microchipNumber}}</p>
+
+    <div class="button-container">
+        <button mat-raised-button color="accent">Edit Animal</button>
+        <button mat-raised-button color="warn">Delete Animal</button>
+    </div>
+
+    <mat-tab-group>
+        <mat-tab label="Health Notes">
+            <button mat-raised-button color="primary">Add Health Note</button>
+            <div style="height: 3000px; width: auto; color: white">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur dicta quod ipsum repudiandae atque
+                illum inventore, dolores veniam, ullam quisquam totam possimus facilis voluptate ducimus fugiat
+                laboriosam voluptatum corrupti? Fugit! </div>
+        </mat-tab>
+        <mat-tab label="Weight History">
+            <button mat-raised-button color="primary">Add Weight Note</button>
+        </mat-tab>
+        <mat-tab label="Important">
+            <button mat-raised-button color="primary">Add Important Document</button>
+        </mat-tab>
+    </mat-tab-group>
+</div>

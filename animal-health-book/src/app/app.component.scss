@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: column;
   height: 100%;
+  margin: 0;
 }
 
 
@@ -11,7 +12,8 @@ mat-toolbar {
 
 .example-container {
   display: flex;
-  flex: 1;
+  flex-direction: column;
+  flex-grow: 1; /* Take up all available height */
 }
 
 .example-sidenav {
@@ -23,7 +25,6 @@ mat-toolbar {
   flex: 1;
   overflow: auto; /* Enable scrolling for content inside the sidenav content */
   padding: 20px;
-  height: calc(100vh - 104px);
 }
 
 .example-spacer {
@@ -39,4 +40,15 @@ mat-toolbar {
   button {
     width: 100%;
   }
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh; 
+}
+
+
+.flex-grow-container {
+  flex-grow: 1;
 }

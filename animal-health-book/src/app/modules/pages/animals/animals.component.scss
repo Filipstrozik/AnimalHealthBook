@@ -1,0 +1,15 @@
+.add-button {
+    //make absolute in the top right corner
+    position: relative;
+    top: 0;
+    right: 0;
+    margin: 1rem;
+    z-index: 1;
+
+}
+
+.page-header-row {
+    display: flex; 
+    flex-direction: row; 
+    justify-content: space-between;
+}

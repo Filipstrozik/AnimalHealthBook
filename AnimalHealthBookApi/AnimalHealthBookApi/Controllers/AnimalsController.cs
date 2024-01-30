@@ -34,7 +34,7 @@ namespace AnimalHealthBookApi.Controllers
 
         // GET: api/Animals/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Animal>> GetAnimal(int id)
+        public async Task<ActionResult<Animal>> GetAnimal(Guid id)
         {
           if (_context.Animals == null)
           {

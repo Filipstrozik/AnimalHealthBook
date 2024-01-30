@@ -25,11 +25,11 @@ export class ApiRequestService {
   // animals
 
   getAnimals(): Observable<Animal[]> {
-    return this.http.get<Animal[]>('api/animals');
+    return this.http.get<Animal[]>('/api/animals');
   }
 
   getAnimal(id: string): Observable<Animal> {
-    return this.http.get<Animal>(`api/animals/${id}`);
+    return this.http.get<Animal>(`/api/animals/${id}`);
   }
 
   createAnimal(animal: Animal): Observable<Animal> {

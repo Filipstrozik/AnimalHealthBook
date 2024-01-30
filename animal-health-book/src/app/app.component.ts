@@ -1,5 +1,6 @@
 import { Component, HostListener } from '@angular/core';
 import { ApiRequestService } from './shared/services/api-request.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -8,6 +9,7 @@ import { ApiRequestService } from './shared/services/api-request.service';
 })
 export class AppComponent {
 
+  public isLogged: boolean = false;
   public isMobile: boolean = false;
 
   public toggleSideNav() {
@@ -25,14 +27,20 @@ export class AppComponent {
     }
   }
 
-  constructor(private apiRequestService: ApiRequestService) { 
+  constructor(private apiRequestService: ApiRequestService, private router: Router) { 
+    const token = localStorage.getItem('token');
+    if (token) {
+      this.isLogged = true;
+    } else {
+      //route to login page
+      this.router.navigate(['/login']);
+    }
   }
 
-  onInit() {
-  }
-
-  changeTheme(theme: string) {
-    
+  logout():void {
+    localStorage.removeItem('token');
+    this.isLogged = false;
+    this.router.navigate(['/login']);
   }
 
   title = 'animal-health-book';

@@ -1,4 +1,10 @@
-<h1>My Animals</h1>
-<div *ngFor="let animal of [1,2,3,4], let i = index">
-    <app-animal-card [routerLink]="['/animal-details', i]" ></app-animal-card>
+<div class="page-header-row">
+    <h1>My Animals</h1>
+    <button mat-fab color="primary" class="add-button" [routerLink]="['/add-animal']">
+        <mat-icon>add</mat-icon>
+    </button>
+</div>
+
+<div *ngFor="let animal of animals, let i = index">
+    <app-animal-card [routerLink]="['/animal-details', animal.id]" [animal]="animal"></app-animal-card>
 </div>
