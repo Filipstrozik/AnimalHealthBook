@@ -40,7 +40,7 @@ namespace AnimalHealthBookApi.Controllers
           {
               return NotFound();
           }
-            var animal = await _context.Animals.FindAsync(id);
+            var animal = await _context.Animals.Include(a => a.AnimalType).FirstOrDefaultAsync(a => a.Id == id);
 
             if (animal == null)
             {

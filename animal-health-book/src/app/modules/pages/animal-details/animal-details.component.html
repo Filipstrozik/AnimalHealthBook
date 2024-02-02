@@ -3,6 +3,10 @@
     <h1>{{animal.name}}</h1>
 
     <mat-grid-list cols="2" rowHeight="4rem" class="grid">
+        <mat-grid-tile>Type</mat-grid-tile>
+        <mat-grid-tile>
+            <h4>{{animal.animalType.name}}</h4>
+        </mat-grid-tile>
         <mat-grid-tile>Breed</mat-grid-tile>
         <mat-grid-tile>
             <h4>{{animal.breed}}</h4>
