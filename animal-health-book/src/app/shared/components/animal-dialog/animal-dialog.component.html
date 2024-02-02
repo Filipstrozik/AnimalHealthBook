@@ -1,0 +1,67 @@
+<h1 mat-dialog-title>{{ data ? 'Edit Animal' : 'Add New Animal' }}</h1>
+
+<div mat-dialog-content class="content-container">
+    <!-- Add form fields based on AnimalCreationDto properties -->
+    <mat-form-field appearance="outline">
+        <mat-label>Name</mat-label>
+        <input matInput placeholder="Name" [(ngModel)]="animal.name" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+        <mat-label>Breed</mat-label>
+        <input matInput placeholder="Breed" [(ngModel)]="animal.breed" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+        <mat-label>Animal Gender</mat-label>
+        <mat-select placeholder="Animal Gender" [(ngModel)]="animal.animalGenderId" required>
+            <mat-option value="0">Male</mat-option>
+            <mat-option value="1">Female</mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+        <mat-label>Birth Date</mat-label>
+        <input matInput [matDatepicker]="picker" placeholder="Birth Date" [(ngModel)]="animal.birthDate" required>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+        <mat-label>Coat Color</mat-label>
+        <input matInput placeholder="Coat Color" [(ngModel)]="animal.coatColor">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+        <mat-label>Coat Type</mat-label>
+        <input matInput placeholder="Coat Type" [(ngModel)]="animal.coatType">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+        <mat-label>Animal Type</mat-label>
+        <mat-select placeholder="Animal Type" [(ngModel)]="animal.animalTypeId" required>
+            @for (type of animalTypes; track type) {
+            <mat-option [value]="type.id">{{ type.name }}</mat-option>
+            }
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+        <mat-label>Is Castrated</mat-label>
+        <mat-select placeholder="Is Castrated" [(ngModel)]="animal.isCastrated" required>
+            <mat-option [value]='true'>Yes</mat-option>
+            <mat-option [value]='false'>No</mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+        <mat-label>Microchip Number</mat-label>
+        <input matInput placeholder="Microchip Number" [(ngModel)]="animal.microchipNumber">
+    </mat-form-field>
+
+</div>
+
+<div mat-dialog-actions>
+    <button mat-button mat-dialog-close type="button" (click)="onCancelClick()">Cancel</button>
+    <button mat-button color="primary" type="button" (click)="onSaveClick()">Save</button>
+</div>

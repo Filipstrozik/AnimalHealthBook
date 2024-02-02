@@ -1,12 +1,35 @@
 <div class="animal-details-container" *ngIf="animal">
+    <img class="image" src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
     <h1>{{animal.name}}</h1>
-    <h2>{{animal.breed}}</h2>
-    <h3>{{animal.birthDate | date}}</h3>
-    <p>{{animal.animalGender}}</p>
-    <p>{{animal.microchipNumber}}</p>
+
+    <mat-grid-list cols="2" rowHeight="4rem" class="grid">
+        <mat-grid-tile>Breed</mat-grid-tile>
+        <mat-grid-tile>
+            <h4>{{animal.breed}}</h4>
+        </mat-grid-tile>
+        <mat-grid-tile>Gender</mat-grid-tile>
+        <mat-grid-tile>
+            <h4>{{animal.animalGender}}</h4>
+        </mat-grid-tile>
+        <mat-grid-tile>Birth Date</mat-grid-tile>
+        <mat-grid-tile>
+            <h4>{{animal.birthDate | date}} (2y)</h4>
+        </mat-grid-tile>
+
+        <mat-grid-tile>Coat Color</mat-grid-tile>
+        <mat-grid-tile>
+            <h4>{{animal.coatColor}}</h4>
+        </mat-grid-tile>
+
+    </mat-grid-list>
+
+
+
+
+    <h4>{{animal.microchipNumber}}</h4>
 
     <div class="button-container">
-        <button mat-raised-button color="accent">Edit Animal</button>
+        <button mat-raised-button color="accent" (click)="openAnimalDiaglog()">Edit Animal</button>
         <button mat-raised-button color="warn">Delete Animal</button>
     </div>
 

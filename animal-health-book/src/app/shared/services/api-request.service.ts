@@ -5,6 +5,8 @@ import { Animal } from '../models/animal';
 import { HealthNote } from '../models/healthNote';
 import { RegisterDto } from '../dto/registerDto';
 import { LoginDto } from '../dto/loginDto';
+import { AnimalType } from '../models/animalType';
+import { AnimalCreationDto } from '../dto/animalDto';
 
 @Injectable({
   providedIn: 'root'
@@ -32,16 +34,22 @@ export class ApiRequestService {
     return this.http.get<Animal>(`/api/animals/${id}`);
   }
 
-  createAnimal(animal: Animal): Observable<Animal> {
-    return this.http.post<Animal>('api/animals', animal);
+  createAnimal(animal: AnimalCreationDto): Observable<Animal> {
+    return this.http.post<Animal>('/api/animals', animal);
   }
 
   updateAnimal(animal: Animal): Observable<Animal> {
-    return this.http.put<Animal>(`api/animals`, animal);
+    return this.http.put<Animal>(`/api/animals`, animal);
   }
 
   deleteAnimal(id: string): Observable<Animal> {
-    return this.http.delete<Animal>(`api/animals/${id}`);
+    return this.http.delete<Animal>(`/api/animals/${id}`);
+  }
+
+  //animalTypes
+
+  getAnimalTypes(): Observable<AnimalType[]> {
+    return this.http.get<AnimalType[]>('/api/animaltypes');
   }
 
   // health notes

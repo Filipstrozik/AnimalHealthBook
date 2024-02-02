@@ -6,6 +6,9 @@ import { ApiRequestService } from '../../../shared/services/api-request.service'
 import { Animal } from '../../../shared/models/animal';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { AnimalCreationDto } from '../../../shared/dto/animalDto';
+import { AnimalDialogComponent } from '../../../shared/components/animal-dialog/animal-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-animals',
@@ -20,7 +23,8 @@ export class AnimalsComponent implements OnInit{
   public animals: Animal[] = [];
 
   constructor(
-    private apiService: ApiRequestService
+    private apiService: ApiRequestService,
+    public dialog: MatDialog
   ) { }
   
   ngOnInit(): void {
@@ -34,4 +38,20 @@ export class AnimalsComponent implements OnInit{
     );
   }
   
+  openAnimalDiaglog(animal?: AnimalCreationDto): void { 
+    const dialogRef = this.dialog.open(AnimalDialogComponent, {
+      data: animal,
+      hasBackdrop: true,
+      disableClose: true,
+      closeOnNavigation: true,
+  });
+
+  dialogRef.afterClosed().subscribe(result => {
+    // Handle the result (edited or newly created animal)
+    if (result) {
+      // TODO: Add logic to save the result
+    }
+  });
+  }
+
 }

@@ -1,0 +1,24 @@
+.container {
+    // make it max width of 400px
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 0 15px;
+    // center it vertically
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    
+
+    .logo {
+      width: 100%;
+      text-align: center;
+      margin-bottom: 20px;
+      img {
+        width: 100%;
+        max-width: 200px;
+      }
+    }
+}
+

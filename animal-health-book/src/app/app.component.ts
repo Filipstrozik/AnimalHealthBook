@@ -1,6 +1,7 @@
 import { Component, HostListener } from '@angular/core';
 import { ApiRequestService } from './shared/services/api-request.service';
 import { Router } from '@angular/router';
+import { AuthService } from './shared/services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -27,19 +28,21 @@ export class AppComponent {
     }
   }
 
-  constructor(private apiRequestService: ApiRequestService, private router: Router) { 
-    const token = localStorage.getItem('token');
-    if (token) {
-      this.isLogged = true;
-    } else {
-      //route to login page
-      this.router.navigate(['/login']);
-    }
+  constructor(
+    private apiRequestService: ApiRequestService,
+    private router: Router,
+    private authService: AuthService
+  ) { 
+    this.isLogged = this.authService.getIsLoggedIn();
+
+    this.authService.isLoggedInChanged.subscribe((isLoggedIn: boolean) => {
+      this.isLogged = isLoggedIn;
+    });
+
   }
 
   logout():void {
-    localStorage.removeItem('token');
-    this.isLogged = false;
+    this.authService.logout();
     this.router.navigate(['/login']);
   }
 

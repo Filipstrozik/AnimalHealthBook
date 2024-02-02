@@ -14,8 +14,9 @@ import { MatListModule } from '@angular/material/list';
 import { MatCardModule } from '@angular/material/card';
 import { AnimalCardComponent } from './shared/components/animal-card/animal-card.component';
 import { AnimalDetailsComponent } from './modules/pages/animal-details/animal-details.component';
-import {MatRippleModule} from '@angular/material/core';
+import {MatNativeDateModule, MatRippleModule} from '@angular/material/core';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 @NgModule({
   declarations: [
     AppComponent
@@ -35,6 +36,8 @@ import { MatMenuModule } from '@angular/material/menu';
     AnimalDetailsComponent,
     MatRippleModule,
     MatMenuModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   providers: [
     {

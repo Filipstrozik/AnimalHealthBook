@@ -1,27 +1,32 @@
-<div class="container">
-    <mat-card>
-        <mat-card-header>
-            <mat-card-title>
-                <h1>Login</h1>
-            </mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
-            <form style="display: flex; flex-direction: column;">
-                <mat-form-field appearance="outline" color="accent">
-                    <mat-label>Email</mat-label>
-                    <input matInput type="email" required [(ngModel)]="email" [ngModelOptions]="{standalone: true}">
-                </mat-form-field>
-                <mat-form-field appearance="outline" color="accent">
-                    <mat-label>Password</mat-label>
-                    <input matInput [type]="hide ? 'password' : 'text'" required [(ngModel)]="password"
-                        [ngModelOptions]="{standalone: true}">
-                    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
-                        [attr.aria-pressed]="hide">
-                        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-                    </button>
-                </mat-form-field>
-                <button mat-raised-button color="accent" (click)="login()">Login</button>
-            </form>
-        </mat-card-content>
-    </mat-card>
+<div class="mat-app-background">
+    <div class="container">
+        <div>
+            <h1>Animal Health Book</h1>
+        </div>
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title>
+                    <h1>Login</h1>
+                </mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <form style="display: flex; flex-direction: column;">
+                    <mat-form-field appearance="outline" color="accent">
+                        <mat-label>Email</mat-label>
+                        <input matInput type="email" required [(ngModel)]="email" [ngModelOptions]="{standalone: true}">
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" color="accent">
+                        <mat-label>Password</mat-label>
+                        <input matInput [type]="hide ? 'password' : 'text'" required [(ngModel)]="password"
+                            [ngModelOptions]="{standalone: true}">
+                        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                            [attr.aria-pressed]="hide">
+                            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        </button>
+                    </mat-form-field>
+                    <button mat-raised-button color="accent" (click)="login()">Login</button>
+                </form>
+            </mat-card-content>
+        </mat-card>
+    </div>
 </div>

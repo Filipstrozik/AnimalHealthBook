@@ -8,6 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ApiRequestService } from '../../../shared/services/api-request.service';
 import { Router } from '@angular/router';
+import { AuthService } from '../../../shared/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -33,7 +34,8 @@ export class LoginComponent {
 
   constructor(
     private apiService: ApiRequestService,
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ) {}
 
   login() {
@@ -46,9 +48,8 @@ export class LoginComponent {
 
     this.apiService.login(loginData).subscribe(
       (res) => {
-        console.log(res);
-        localStorage.setItem('token', res.token);
-        this.router.navigate(['/home']);
+        this.authService.login(res.token);
+        this.router.navigate(['/animals']);
       },
       (err) => {
         console.log(err);
