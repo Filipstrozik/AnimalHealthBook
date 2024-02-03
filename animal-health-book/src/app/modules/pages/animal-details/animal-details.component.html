@@ -2,48 +2,54 @@
     <img class="image" src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
     <h1>{{animal.name}}</h1>
 
-    <mat-grid-list cols="2" rowHeight="4rem" class="grid">
-        <mat-grid-tile>Type</mat-grid-tile>
-        <mat-grid-tile>
-            <h4>{{animal.animalType.name}}</h4>
-        </mat-grid-tile>
-        <mat-grid-tile>Breed</mat-grid-tile>
-        <mat-grid-tile>
-            <h4>{{animal.breed}}</h4>
-        </mat-grid-tile>
-        <mat-grid-tile>Gender</mat-grid-tile>
-        <mat-grid-tile>
-            <h4>{{animal.animalGender}}</h4>
-        </mat-grid-tile>
-        <mat-grid-tile>Birth Date</mat-grid-tile>
-        <mat-grid-tile>
-            <h4>{{animal.birthDate | date}} (2y)</h4>
-        </mat-grid-tile>
-
-        <mat-grid-tile>Coat Color</mat-grid-tile>
-        <mat-grid-tile>
-            <h4>{{animal.coatColor}}</h4>
-        </mat-grid-tile>
-
-    </mat-grid-list>
-
-
-
-
-    <h4>{{animal.microchipNumber}}</h4>
 
     <div class="button-container">
-        <button mat-raised-button color="accent" (click)="openAnimalDiaglog()">Edit Animal</button>
         <button mat-raised-button color="warn">Delete Animal</button>
     </div>
 
     <mat-tab-group>
+        <mat-tab label="Info">
+            <div class="tab-row">
+                <h2>Information</h2>
+                <button mat-mini-fab color="accent" (click)="openAnimalDiaglog()">
+                    <mat-icon>edit</mat-icon>
+                </button>
+            </div>
+            <mat-grid-list cols="2" rowHeight="4rem" class="grid">
+                <mat-grid-tile>Type</mat-grid-tile>
+                <mat-grid-tile>
+                    <h4>{{animal.animalType.name}}</h4>
+                </mat-grid-tile>
+                <mat-grid-tile>Breed</mat-grid-tile>
+                <mat-grid-tile>
+                    <h4>{{animal.breed}}</h4>
+                </mat-grid-tile>
+                <mat-grid-tile>Gender</mat-grid-tile>
+                <mat-grid-tile>
+                    <h4>{{animal.animalGender}}</h4>
+                </mat-grid-tile>
+                <mat-grid-tile>Birth Date</mat-grid-tile>
+                <mat-grid-tile>
+                    <h4>{{animal.birthDate | date}} (2y)</h4>
+                </mat-grid-tile>
+                <mat-grid-tile>Coat Color</mat-grid-tile>
+                <mat-grid-tile>
+                    <h4>{{animal.coatColor}}</h4>
+                </mat-grid-tile>
+                <mat-grid-tile>Microchip No.</mat-grid-tile>
+                <mat-grid-tile>
+                    <h4>{{animal.microchipNumber}}</h4>
+                </mat-grid-tile>
+
+            </mat-grid-list>
+        </mat-tab>
         <mat-tab label="Health Notes">
-            <button mat-raised-button color="primary">Add Health Note</button>
-            <div style="height: 3000px; width: auto; color: white">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur dicta quod ipsum repudiandae atque
-                illum inventore, dolores veniam, ullam quisquam totam possimus facilis voluptate ducimus fugiat
-                laboriosam voluptatum corrupti? Fugit! </div>
+            <div class="tab-row">
+                <h2>Health Notes</h2>
+                <button mat-mini-fab color="accent">
+                    <mat-icon>add</mat-icon>
+                </button>
+            </div>
         </mat-tab>
         <mat-tab label="Weight History">
             <button mat-raised-button color="primary">Add Weight Note</button>

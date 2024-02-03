@@ -15,8 +15,8 @@
     <mat-form-field appearance="outline">
         <mat-label>Animal Gender</mat-label>
         <mat-select placeholder="Animal Gender" [(ngModel)]="animal.animalGenderId" required>
-            <mat-option value="0">Male</mat-option>
-            <mat-option value="1">Female</mat-option>
+            <mat-option [value]="0">Male</mat-option>
+            <mat-option [value]="1">Female</mat-option>
         </mat-select>
     </mat-form-field>
 

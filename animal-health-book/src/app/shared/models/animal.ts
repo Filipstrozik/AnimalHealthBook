@@ -10,7 +10,7 @@ export interface Animal {
     breed: string;
     animalGenderId: number;
     animalGender: Gender;
-    birthDate: string;
+    birthDate: Date;
     coatColor: string | null;
     coatType: string | null;
     animalTypeId: string;

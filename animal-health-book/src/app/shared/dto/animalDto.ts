@@ -1,4 +1,5 @@
 export interface AnimalCreationDto {
+  id?: string;
   name: string;
   breed: string;
   animalGenderId: number;
@@ -6,7 +7,7 @@ export interface AnimalCreationDto {
   coatColor?: string | null;
   coatType?: string | null;
   animalTypeId: string;
-  userId: string;
+  userId?: string;
   isCastrated: boolean;
   microchipNumber?: string | null;
 }
