@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using AnimalHealthBookApi.Context;
+﻿using AnimalHealthBookApi.Context;
+using AnimalHealthBookApi.Dto;
 using AnimalHealthBookApi.Models;
 using Microsoft.AspNetCore.Identity;
-using AnimalHealthBookApi.Dto;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -23,24 +17,27 @@ namespace AnimalHealthBookApi.Controllers
         private readonly AHBContext _context;
         private readonly SignInManager<User> _signInManager;
         private readonly UserManager<User> _userManager;
+        private readonly IConfiguration _configuration;
 
 
         public UsersController(
             AHBContext context, 
             SignInManager<User> signInManager,
-            UserManager<User> userManager
+            UserManager<User> userManager,
+            IConfiguration configuration
             )
         {
             _context = context;
             _signInManager = signInManager;
             _userManager = userManager;
+            _configuration = configuration;
         }
 
 
         private string GenerateJwtToken(User user)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes("YourSecretKeyHere"); // Replace with your secret key
+            var key = Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]); // Replace with your secret key
 
             var claims = new List<Claim>
             {
@@ -57,9 +54,11 @@ namespace AnimalHealthBookApi.Controllers
 
             var tokenDescriptor = new SecurityTokenDescriptor
             {
+                Audience = _configuration["Jwt:Audience"],
                 Subject = new ClaimsIdentity(claims),
                 Expires = DateTime.UtcNow.AddDays(1), // Token expiration time
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
+                Issuer = _configuration["Jwt:Issuer"]
             };
 
             var token = tokenHandler.CreateToken(tokenDescriptor);

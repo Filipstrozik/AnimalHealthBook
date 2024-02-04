@@ -1,45 +1,63 @@
 ﻿using AnimalHealthBookApi.Context;
 using AnimalHealthBookApi.Dto;
 using AnimalHealthBookApi.Models;
+using AnimalHealthBookApi.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace AnimalHealthBookApi.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize]
     [ApiController]
     public class AnimalsController : ControllerBase
     {
         private readonly AHBContext _context;
+        private readonly UserService _userService;
 
-        public AnimalsController(AHBContext context)
+        public AnimalsController(
+            AHBContext context,
+            UserService userService
+            )
         {
             _context = context;
+            _userService = userService;
         }
 
         // GET: api/Animals
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Animal>>> GetAnimals()
         {
+
+
           if (_context.Animals == null)
           {
               return NotFound();
           }
-            return await _context.Animals
-                .Include(a => a.AnimalType)
-                .Include(a => a.HealthNotes)
-                .Include(a => a.Appointments)
-                .ToListAsync();
+
+          User user = _userService.GetUserFromRequest();
+
+          var animals = await _context.Animals
+              .Include(a => a.AnimalType)
+              .Include(a => a.HealthNotes)
+              .Include(a => a.Appointments)
+              .Include(a => a.Users)
+              .Where(a => a.Users.Contains(user))
+              .ToListAsync();
+
+            return animals;
         }
 
         // GET: api/Animals/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Animal>> GetAnimal(Guid id)
         {
-          if (_context.Animals == null)
-          {
-              return NotFound();
-          }
+            if (_context.Animals == null)
+            {
+                return NotFound();
+            }
+
             var animal = await _context.Animals.Include(a => a.AnimalType).FirstOrDefaultAsync(a => a.Id == id);
 
             if (animal == null)
@@ -82,6 +100,7 @@ namespace AnimalHealthBookApi.Controllers
             animal.AnimalTypeId = animalDto.AnimalTypeId;
             animal.IsCastrated = animalDto.IsCastrated;
             animal.MicrochipNumber = animalDto.MicrochipNumber;
+            animal.Users = animalDto.Users;
 
             _context.Entry(animal).State = EntityState.Modified;
 
@@ -119,6 +138,8 @@ namespace AnimalHealthBookApi.Controllers
                 return BadRequest();
             }
 
+            User user = _userService.GetUserFromRequest();
+
             Animal animal = new Animal()
             {
                 Name = animalDto.Name,
@@ -128,7 +149,9 @@ namespace AnimalHealthBookApi.Controllers
                 CoatType = animalDto.CoatType,
                 AnimalTypeId = animalDto.AnimalTypeId,
                 IsCastrated = animalDto.IsCastrated,
-                MicrochipNumber = animalDto.MicrochipNumber
+                MicrochipNumber = animalDto.MicrochipNumber,
+                AnimalGenderId = animalDto.AnimalGenderId,
+                Users = new List<User>() { user }
             };
 
 

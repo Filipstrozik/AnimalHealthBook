@@ -1,4 +1,6 @@
-﻿namespace AnimalHealthBookApi.Dto
+﻿using AnimalHealthBookApi.Models;
+
+namespace AnimalHealthBookApi.Dto
 {
     public class AnimalEditDto
     {
@@ -17,7 +19,7 @@
 
         public Guid AnimalTypeId { get; set; }
 
-        public Guid UserId { get; set; }
+        public IEnumerable<User> Users { get; set; }
 
         public bool IsCastrated { get; set; }
 
