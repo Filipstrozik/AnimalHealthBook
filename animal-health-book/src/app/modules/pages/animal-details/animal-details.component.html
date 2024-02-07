@@ -1,21 +1,21 @@
 <div class="animal-details-container" *ngIf="animal">
-    <img class="image" src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
-    <h1>{{animal.name}}</h1>
 
+    <div class="main-container">
+        <div class="header-container mat-app-background">
+            <h1>{{animal.name}}</h1>
+            <img class="image" src="https://material.angular.io/assets/img/examples/shiba2.jpg"
+                alt="Photo of a Shiba Inu">
 
-    <div class="button-container">
-        <button mat-raised-button color="warn">Delete Animal</button>
-    </div>
+        </div>
 
-    <mat-tab-group>
-        <mat-tab label="Info">
+        <div class="quick-info-container">
             <div class="tab-row">
                 <h2>Information</h2>
                 <button mat-mini-fab color="accent" (click)="openAnimalDiaglog()">
                     <mat-icon>edit</mat-icon>
                 </button>
             </div>
-            <mat-grid-list cols="2" rowHeight="4rem" class="grid">
+            <mat-grid-list cols="2" rowHeight="2rem" class="grid">
                 <mat-grid-tile>Type</mat-grid-tile>
                 <mat-grid-tile>
                     <h4>{{animal.animalType.name}}</h4>
@@ -42,7 +42,26 @@
                 </mat-grid-tile>
 
             </mat-grid-list>
-        </mat-tab>
+        </div>
+
+        <div class="quick-access-container">
+            <div class="tab-row">
+                <h2>Quick Access</h2>
+            </div>
+            <mat-grid-list cols="2" rowHeight="3rem" class="grid">
+                <!-- add some buttons for 'gallery', 'vaccination document' -->
+                <mat-grid-tile>
+                    <button mat-raised-button color="primary">Gallery</button>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <button mat-raised-button color="primary">Vaccination Document</button>
+                </mat-grid-tile>
+
+            </mat-grid-list>
+        </div>
+    </div>
+
+    <mat-tab-group>
         <mat-tab label="Health Notes">
             <div class="tab-row">
                 <h2>Health Notes</h2>
@@ -50,12 +69,30 @@
                     <mat-icon>add</mat-icon>
                 </button>
             </div>
+            <mat-card class="calendar">
+                <mat-calendar [(selected)]="selected"></mat-calendar>
+            </mat-card>
+            <div class="health-notes-list">
+                <!-- <mat-list>
+                    <mat-list-item *ngFor="let note of animal.healthNotes">
+                        <h3 mat-line>{{note.date | date}}</h3>
+                        <p mat-line>{{note.note}}</p>
+                    </mat-list-item>
+                </mat-list> -->
+            </div>
         </mat-tab>
         <mat-tab label="Weight History">
             <button mat-raised-button color="primary">Add Weight Note</button>
+        </mat-tab>
+        <mat-tab label="Poop log">
+            <button mat-raised-button color="primary">Add Poop log</button>
         </mat-tab>
         <mat-tab label="Important">
             <button mat-raised-button color="primary">Add Important Document</button>
         </mat-tab>
     </mat-tab-group>
+    <div class="button-container">
+        <button mat-raised-button color="warn">Delete Animal</button>
+    </div>
+
 </div>

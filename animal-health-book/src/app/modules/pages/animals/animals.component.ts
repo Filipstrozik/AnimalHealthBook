@@ -28,6 +28,10 @@ export class AnimalsComponent implements OnInit{
   ) { }
   
   ngOnInit(): void {
+    this.getAnimals();
+  }
+
+  public getAnimals(): void {
     this.apiService.getAnimals().subscribe(
       (res) => {
         this.animals = res;
@@ -47,9 +51,8 @@ export class AnimalsComponent implements OnInit{
   });
 
   dialogRef.afterClosed().subscribe(result => {
-    // Handle the result (edited or newly created animal)
     if (result) {
-      // TODO: Add logic to save the result
+      this.getAnimals();
     }
   });
   }

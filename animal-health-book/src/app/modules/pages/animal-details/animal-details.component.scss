@@ -5,7 +5,7 @@
 
 .image {
     width: 100%;
-    max-width: 25rem;
+    max-width: 20rem;
 
 }
 .tab-row {
@@ -13,4 +13,29 @@
     flex-direction: row; 
     align-items: center;
     gap: 1rem;
+}
+
+.main-container{
+    // make display flex in row but wrap to column if no space
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 1rem;
+
+    .header-container {
+        min-width: 20rem;
+    }
+
+    .quick-info-container {
+        min-width: 20rem;
+    }
+
+    .quick-access-container {
+        min-width: 20rem;
+    }
+}
+
+
+.calendar {
+    width: 20rem;
 }

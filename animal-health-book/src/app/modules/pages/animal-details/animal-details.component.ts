@@ -10,6 +10,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { AnimalCreationDto } from '../../../shared/dto/animalDto';
 import { AnimalDialogComponent } from '../../../shared/components/animal-dialog/animal-dialog.component';
 import { MatIconModule } from '@angular/material/icon';
+import { MatCardModule } from '@angular/material/card';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import {NativeDateAdapter} from '@angular/material/core';
 @Component({
   selector: 'app-animal-details',
   standalone: true,
@@ -19,16 +22,20 @@ import { MatIconModule } from '@angular/material/icon';
     MatButtonModule,
     MatGridListModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    MatCardModule,
+    MatDatepickerModule
   ],
   templateUrl: './animal-details.component.html',
-  styleUrl: './animal-details.component.scss'
+  styleUrl: './animal-details.component.scss',
+  providers: [NativeDateAdapter]
 })
 export class AnimalDetailsComponent {
   route: ActivatedRoute = inject(ActivatedRoute);
   animalId: string = this.route.snapshot.paramMap.get('id')!;
   
   animal: Animal = null as any;
+  selected: Date | null = null;
 
   constructor(
     private apiService: ApiRequestService,
