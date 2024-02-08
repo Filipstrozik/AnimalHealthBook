@@ -1,11 +1,10 @@
 ﻿namespace AnimalHealthBookApi.Models
 {
-    public class AnimalType
+    public class Breed
     {
         public Guid Id { get; set; }
-
         public string Name { get; set; }
 
-        public IEnumerable<Breed> Breeds { get; set; }
+        public AnimalType AnimalType { get; set; }
     }
 }

@@ -19,6 +19,8 @@ namespace AnimalHealthBookApi.Context
 
         public DbSet<AnimalType> AnimalTypes { get; set; }
 
+        public DbSet<Breed> Breeds { get; set; }
+
         public DbSet<Clinic> Clinics { get; set; }
 
         public DbSet<User> Users { get; set; }
