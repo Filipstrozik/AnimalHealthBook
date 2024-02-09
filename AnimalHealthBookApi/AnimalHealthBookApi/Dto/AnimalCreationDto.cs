@@ -5,8 +5,9 @@ namespace AnimalHealthBookApi.Dto
     public class AnimalCreationDto
     {
         public string Name { get; set; }
+        public Guid AnimalTypeId { get; set; }
 
-        public string Breed { get; set; }
+        public Guid BreedId { get; set; }
 
         public int AnimalGenderId { get; set; }
 
@@ -16,7 +17,6 @@ namespace AnimalHealthBookApi.Dto
 
         public string? CoatType { get; set; }
 
-        public Guid AnimalTypeId { get; set; }
 
         public Guid UserId { get; set; }
 

@@ -1,7 +1,7 @@
 export interface AnimalCreationDto {
   id?: string;
   name: string;
-  breed: string;
+  breedId: string;
   animalGenderId: number;
   birthDate: Date;
   coatColor?: string | null;

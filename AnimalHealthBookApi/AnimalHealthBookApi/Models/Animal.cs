@@ -6,7 +6,9 @@
 
         public string Name { get; set; }
 
-        public string Breed { get; set; }
+        public Guid AnimalTypeId { get; set; }
+
+        public virtual Breed Breed { get; set; }
 
         public int AnimalGenderId { get; set; }
 

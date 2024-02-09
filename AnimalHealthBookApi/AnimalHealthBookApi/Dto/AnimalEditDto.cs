@@ -7,7 +7,7 @@ namespace AnimalHealthBookApi.Dto
         public Guid Id { get; set; }
         public string Name { get; set; }
 
-        public string Breed { get; set; }
+        public Guid BreedId { get; set; }
 
         public int AnimalGenderId { get; set; }
 

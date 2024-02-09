@@ -46,5 +46,5 @@ $animal-health-book-dark-theme: mat.define-dark-theme((
 
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
+html, body { height: 100%; height: -webkit-fill-available;}
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

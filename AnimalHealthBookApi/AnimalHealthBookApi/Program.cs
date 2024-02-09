@@ -58,7 +58,7 @@ builder.Services.AddCors(options =>
     options.AddDefaultPolicy(
         builder =>
         {
-            builder.AllowAnyOrigin()
+            builder.WithOrigins("http://192.168.0.150:4200")
                 .AllowAnyHeader()
                 .AllowAnyMethod();
         });
@@ -88,7 +88,7 @@ using (var scope = app.Services.CreateScope())
 }
 
 app.UseCors(options => {
-    options.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin();
+    options.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://192.168.0.150:4200");
 });
 
 
