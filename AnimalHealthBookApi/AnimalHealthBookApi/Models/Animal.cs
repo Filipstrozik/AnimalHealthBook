@@ -8,6 +8,10 @@
 
         public Guid AnimalTypeId { get; set; }
 
+        public virtual AnimalType AnimalType { get; set; }
+
+        public Guid BreedId { get; set; }
+
         public virtual Breed Breed { get; set; }
 
         public int AnimalGenderId { get; set; }
@@ -19,10 +23,6 @@
         public string? CoatColor { get; set; }
 
         public string? CoatType { get; set; }
-
-        public Guid AnimalTypeId { get; set; }
-
-        public virtual AnimalType AnimalType { get; set; }
 
         public virtual IEnumerable<User> Users { get; set; }
 

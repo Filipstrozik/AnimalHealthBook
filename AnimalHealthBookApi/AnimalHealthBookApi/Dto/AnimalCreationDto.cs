@@ -17,7 +17,6 @@ namespace AnimalHealthBookApi.Dto
 
         public string? CoatType { get; set; }
 
-
         public Guid UserId { get; set; }
 
         public bool IsCastrated { get; set; }

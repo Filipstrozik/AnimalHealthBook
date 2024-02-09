@@ -31,9 +31,9 @@
       [(ngModel)]="animal.breedId"
       required
     >
-      <mat-option *ngFor="let breed of breeds" [value]="breed.id">
-        {{ breed.name }}
-      </mat-option>
+      @for (breed of breeds; track breed) {
+      <mat-option [value]="breed.id">{{ breed.name }}</mat-option>
+      }
     </mat-autocomplete>
   </mat-form-field>
 
