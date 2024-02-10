@@ -1,7 +1,4 @@
-<div
-  class="animal-details-container"
-  *ngIf="animal"
->
+<div class="animal-details-container" *ngIf="animal">
   <div class="main-container">
     <div class="header-container mat-app-background">
       <h1>{{ animal.name }}</h1>
@@ -26,7 +23,7 @@
         </mat-grid-tile>
         <mat-grid-tile>Breed</mat-grid-tile>
         <mat-grid-tile>
-          <h4>{{ animal.breed }}</h4>
+          <h4>{{ animal.breed.name }}</h4>
         </mat-grid-tile>
         <mat-grid-tile>Gender</mat-grid-tile>
         <mat-grid-tile>

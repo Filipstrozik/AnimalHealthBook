@@ -19,20 +19,26 @@
   <mat-form-field appearance="outline">
     <mat-label>Breed</mat-label>
     <input
+      #input
       type="text"
-      placeholder="Pick one"
+      placeholder="start typing to search..."
       matInput
       [formControl]="myControl"
       [matAutocomplete]="auto"
+      (input)="filter()"
+      (focus)="filter()"
     />
     <mat-autocomplete
+      requireSelection
       #auto="matAutocomplete"
+      [displayWith]="breedDisplayFn"
       placeholder="Breed"
-      [(ngModel)]="animal.breedId"
       required
     >
-      @for (breed of breeds; track breed) {
-      <mat-option [value]="breed.id">{{ breed.name }}</mat-option>
+      @for (breed of filteredBreeds | async; track breed) {
+      <mat-option [value]="breed">
+        {{ breed.name }}
+      </mat-option>
       }
     </mat-autocomplete>
   </mat-form-field>

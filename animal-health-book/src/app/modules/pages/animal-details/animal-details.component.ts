@@ -58,12 +58,14 @@ export class AnimalDetailsComponent {
       const animalCreationDto: AnimalCreationDto = {
         id: this.animal.id,
         name: this.animal.name,
-        breedId: this.animal.breed,
+        breedId: this.animal.breed.id,
+        breed: this.animal.breed,
         birthDate: this.animal.birthDate,
         coatColor: this.animal.coatColor,
         coatType: this.animal.coatType,
         animalGenderId: this.animal.animalGenderId,
         animalTypeId: this.animal.animalTypeId,
+        animalType: this.animal.animalType,
         isCastrated: this.animal.isCastrated,
         microchipNumber: this.animal.microchipNumber,
       };

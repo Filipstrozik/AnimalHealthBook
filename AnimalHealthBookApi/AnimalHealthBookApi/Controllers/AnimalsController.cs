@@ -58,7 +58,7 @@ namespace AnimalHealthBookApi.Controllers
                 return NotFound();
             }
 
-            var animal = await _context.Animals.Include(a => a.AnimalType).FirstOrDefaultAsync(a => a.Id == id);
+            var animal = await _context.Animals.Include(a => a.AnimalType).Include(a => a.Breed).FirstOrDefaultAsync(a => a.Id == id);
 
             if (animal == null)
             {
@@ -92,7 +92,7 @@ namespace AnimalHealthBookApi.Controllers
             Animal animal = await _context.Animals.FindAsync(animalDto.Id);
 
             animal.Name = animalDto.Name;
-            animal.Breed = animalDto.Breed;
+            animal.BreedId = animalDto.BreedId;
             animal.AnimalGenderId = animalDto.AnimalGenderId;
             animal.BirthDate = animalDto.BirthDate;
             animal.CoatColor = animalDto.CoatColor;
@@ -143,7 +143,7 @@ namespace AnimalHealthBookApi.Controllers
             Animal animal = new Animal()
             {
                 Name = animalDto.Name,
-                Breed = animalDto.Breed,
+                BreedId = animalDto.BreedId,
                 BirthDate = animalDto.BirthDate,
                 CoatColor = animalDto.CoatColor,
                 CoatType = animalDto.CoatType,
