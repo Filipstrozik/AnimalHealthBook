@@ -28,6 +28,11 @@
       (input)="filter()"
       (focus)="filter()"
     />
+    @if (myControl) {
+    <button matSuffix mat-icon-button aria-label="Clear">
+      <mat-icon>close</mat-icon>
+    </button>
+    }
     <mat-autocomplete
       requireSelection
       #auto="matAutocomplete"
@@ -75,12 +80,28 @@
 
   <mat-form-field appearance="outline">
     <mat-label>Coat Color</mat-label>
-    <input matInput placeholder="Coat Color" [(ngModel)]="animal.coatColor" />
+    <mat-select
+      placeholder="Coat Color"
+      [(ngModel)]="animal.coatColorId"
+      required
+    >
+      @for (coatColor of coatColors; track coatColor) {
+      <mat-option [value]="coatColor.id">{{ coatColor.name }}</mat-option>
+      }
+    </mat-select>
   </mat-form-field>
 
   <mat-form-field appearance="outline">
     <mat-label>Coat Type</mat-label>
-    <input matInput placeholder="Coat Type" [(ngModel)]="animal.coatType" />
+    <mat-select
+      placeholder="Coat Type"
+      [(ngModel)]="animal.coatTypeId"
+      required
+    >
+      @for (coatType of coatTypes; track coatType) {
+      <mat-option [value]="coatType.id">{{ coatType.name }}</mat-option>
+      }
+    </mat-select>
   </mat-form-field>
 
   <mat-form-field appearance="outline">

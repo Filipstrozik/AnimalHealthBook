@@ -61,8 +61,8 @@ export class AnimalDetailsComponent {
         breedId: this.animal.breed.id,
         breed: this.animal.breed,
         birthDate: this.animal.birthDate,
-        coatColor: this.animal.coatColor,
-        coatType: this.animal.coatType,
+        coatColorId: this.animal.coatColorId,
+        coatTypeId: this.animal.coatTypeId,
         animalGenderId: this.animal.animalGenderId,
         animalTypeId: this.animal.animalTypeId,
         animalType: this.animal.animalType,
@@ -78,9 +78,15 @@ export class AnimalDetailsComponent {
       });
 
       dialogRef.afterClosed().subscribe((result) => {
-        // Handle the result (edited or newly created animal)
         if (result) {
-          // TODO: Add logic to save the result
+          this.apiService.getAnimal(this.animalId).subscribe(
+            (res) => {
+              this.animal = res;
+            },
+            (err) => {
+              console.log(err);
+            }
+          );
         }
       });
     }

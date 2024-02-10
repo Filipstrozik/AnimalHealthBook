@@ -20,9 +20,11 @@
 
         public DateTime BirthDate { get; set; }
         
-        public string? CoatColor { get; set; }
+        public Guid CoatColorId { get; set; }
+        public CoatColor CoatColor { get; set; }
 
-        public string? CoatType { get; set; }
+        public Guid CoatTypeId { get; set; }
+        public CoatType CoatType { get; set; }
 
         public virtual IEnumerable<User> Users { get; set; }
 

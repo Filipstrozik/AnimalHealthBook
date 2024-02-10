@@ -4,6 +4,8 @@ import { User } from './user';
 import { Appointment } from './appointment';
 import { HealthNote } from './healthNote';
 import { Breed } from './breed';
+import { CoatColor } from './coatColor';
+import { CoatType } from './coatType';
 
 export interface Animal {
   id: string;
@@ -13,8 +15,10 @@ export interface Animal {
   animalGenderId: number;
   animalGender: Gender;
   birthDate: Date;
-  coatColor: string | null;
-  coatType: string | null;
+  coatColorId: string;
+  coatColor: CoatColor;
+  coatTypeId: string;
+  coatType: CoatType;
   animalTypeId: string;
   animalType: AnimalType;
   users: User[];

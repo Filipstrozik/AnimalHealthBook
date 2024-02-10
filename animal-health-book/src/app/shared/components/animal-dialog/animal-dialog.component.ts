@@ -28,6 +28,9 @@ import { Breed } from '../../models/breed';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { Observable, map, of, startWith } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
+import { CoatType } from '../../models/coatType';
+import { CoatColor } from '../../models/coatColor';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-animal-dialog',
@@ -48,12 +51,15 @@ import { AsyncPipe } from '@angular/common';
     FormsModule,
     ReactiveFormsModule,
     AsyncPipe,
+    MatIconModule,
   ],
   templateUrl: './animal-dialog.component.html',
   styleUrl: './animal-dialog.component.scss',
 })
 export class AnimalDialogComponent implements OnInit {
   animal: AnimalCreationDto = {} as AnimalCreationDto;
+  coatTypes: CoatType[] = [];
+  coatColors: CoatColor[] = [];
   animalTypes: AnimalType[] = [];
   breeds: Breed[] = [];
   myControl = new FormControl();
@@ -69,7 +75,6 @@ export class AnimalDialogComponent implements OnInit {
   ) {
     if (data) {
       this.animal = { ...data };
-      debugger;
       this.breeds = this.animal.animalType!.breeds;
       this.myControl.setValue(data.breed);
     }
@@ -78,6 +83,14 @@ export class AnimalDialogComponent implements OnInit {
       this.breeds = this.animalTypes.find(
         (a) => a.id === this.animal.animalTypeId
       )!.breeds;
+    });
+
+    this.apiService.getCoatTypes().subscribe((res) => {
+      this.coatTypes = res;
+    });
+
+    this.apiService.getCoatColors().subscribe((res) => {
+      this.coatColors = res;
     });
   }
 
@@ -93,6 +106,9 @@ export class AnimalDialogComponent implements OnInit {
       (x) => x.id === this.animal.animalTypeId
     );
     if (selectedAnimalType) {
+      this.animal.breedId = '';
+      this.animal.breed = {} as Breed;
+      this.myControl.setValue('');
       this.breeds = selectedAnimalType.breeds;
       this.filteredBreeds = this.myControl.valueChanges.pipe(
         startWith(''),
@@ -130,11 +146,17 @@ export class AnimalDialogComponent implements OnInit {
     const userId = this.authService.getUserId();
     if (userId) {
       this.animal.userId = userId;
-      debugger;
       this.animal.breedId = this.myControl.value.id;
-      this.apiService.createAnimal(this.animal).subscribe((res) => {
-        console.log(res);
-      });
+
+      if (this.animal.id) {
+        this.apiService.updateAnimal(this.animal).subscribe((res) => {
+          this.animal = res;
+        });
+      } else {
+        this.apiService.createAnimal(this.animal).subscribe((res) => {
+          this.animal = res;
+        });
+      }
     } else {
       // show allert or something
       return;

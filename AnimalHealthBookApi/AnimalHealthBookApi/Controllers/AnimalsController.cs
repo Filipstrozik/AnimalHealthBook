@@ -43,6 +43,10 @@ namespace AnimalHealthBookApi.Controllers
               .Include(a => a.HealthNotes)
               .Include(a => a.Appointments)
               .Include(a => a.Users)
+              .Include(a => a.AnimalType)
+              .Include(a => a.Breed)
+              .Include(a => a.CoatColor)
+              .Include(a => a.CoatType)
               .Where(a => a.Users.Contains(user))
               .ToListAsync();
 
@@ -58,7 +62,12 @@ namespace AnimalHealthBookApi.Controllers
                 return NotFound();
             }
 
-            var animal = await _context.Animals.Include(a => a.AnimalType).Include(a => a.Breed).FirstOrDefaultAsync(a => a.Id == id);
+            var animal = await _context.Animals
+                .Include(a => a.AnimalType)
+                .Include(a => a.Breed)
+                .Include(a => a.CoatColor)
+                .Include(a => a.CoatType)
+                .FirstOrDefaultAsync(a => a.Id == id);
 
             if (animal == null)
             {
@@ -95,12 +104,35 @@ namespace AnimalHealthBookApi.Controllers
             animal.BreedId = animalDto.BreedId;
             animal.AnimalGenderId = animalDto.AnimalGenderId;
             animal.BirthDate = animalDto.BirthDate;
-            animal.CoatColor = animalDto.CoatColor;
-            animal.CoatType = animalDto.CoatType;
+            animal.CoatColorId = animalDto.CoatColorId;
+            animal.CoatTypeId = animalDto.CoatTypeId;
             animal.AnimalTypeId = animalDto.AnimalTypeId;
             animal.IsCastrated = animalDto.IsCastrated;
             animal.MicrochipNumber = animalDto.MicrochipNumber;
             animal.Users = animalDto.Users;
+
+            Breed breed = await _context.Breeds.FindAsync(animalDto.BreedId);
+            CoatColor coatColor = await _context.CoatColors.FindAsync(animalDto.CoatColorId);
+            CoatType coatType = await _context.CoatTypes.FindAsync(animalDto.CoatTypeId);
+
+            if(breed == null)
+            {
+                return BadRequest("Breed not found.");
+            }
+
+            if (coatColor == null)
+            {
+                return BadRequest("Coat color not found.");
+            }
+
+            if (coatType == null)
+            {
+                return BadRequest("Coat type not found.");
+            }
+
+            animal.Breed = breed;
+            animal.CoatColor = coatColor;
+            animal.CoatType = coatType;
 
             _context.Entry(animal).State = EntityState.Modified;
 
@@ -145,14 +177,15 @@ namespace AnimalHealthBookApi.Controllers
                 Name = animalDto.Name,
                 BreedId = animalDto.BreedId,
                 BirthDate = animalDto.BirthDate,
-                CoatColor = animalDto.CoatColor,
-                CoatType = animalDto.CoatType,
+                CoatColorId = animalDto.CoatColorId,
+                CoatTypeId = animalDto.CoatTypeId,
                 AnimalTypeId = animalDto.AnimalTypeId,
                 IsCastrated = animalDto.IsCastrated,
                 MicrochipNumber = animalDto.MicrochipNumber,
                 AnimalGenderId = animalDto.AnimalGenderId,
                 Users = new List<User>() { user }
             };
+
 
 
             _context.Animals.Add(animal);

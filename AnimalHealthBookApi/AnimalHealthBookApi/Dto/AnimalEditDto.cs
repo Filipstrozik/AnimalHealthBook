@@ -13,13 +13,13 @@ namespace AnimalHealthBookApi.Dto
 
         public DateTime BirthDate { get; set; }
 
-        public string? CoatColor { get; set; }
+        public Guid CoatColorId { get; set; }
 
-        public string? CoatType { get; set; }
+        public Guid CoatTypeId { get; set; }
 
         public Guid AnimalTypeId { get; set; }
 
-        public IEnumerable<User> Users { get; set; }
+        public IEnumerable<User>? Users { get; set; }
 
         public bool IsCastrated { get; set; }
 
