@@ -13,9 +13,13 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { NativeDateAdapter } from '@angular/material/core';
+import { DocumentsComponent } from '../../../shared/components/documents/documents.component';
 @Component({
   selector: 'app-animal-details',
   standalone: true,
+  templateUrl: './animal-details.component.html',
+  styleUrl: './animal-details.component.scss',
+  providers: [NativeDateAdapter],
   imports: [
     CommonModule,
     MatTabsModule,
@@ -25,10 +29,8 @@ import { NativeDateAdapter } from '@angular/material/core';
     MatIconModule,
     MatCardModule,
     MatDatepickerModule,
+    DocumentsComponent,
   ],
-  templateUrl: './animal-details.component.html',
-  styleUrl: './animal-details.component.scss',
-  providers: [NativeDateAdapter],
 })
 export class AnimalDetailsComponent {
   route: ActivatedRoute = inject(ActivatedRoute);

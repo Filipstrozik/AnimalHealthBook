@@ -13,6 +13,8 @@ namespace AnimalHealthBookApi.Context
 
         }
 
+        public DbSet<UploadFile> UploadFiles { get; set; }
+
         public DbSet<HealthNote> HealthNotes { get; set; }
 
         public DbSet<Animal> Animals { get; set; }

@@ -43,6 +43,7 @@ Ankh.NoLoad
 *.project.nuget.cache
 ./AnimalHealthBookApi/AnimalHealthBookApi/obj
 ./AnimalHealthBookApi/AnimalHealthBookApi/bin
+./AnimalHealthBookApi/AnimalHealthBookApi/wwwroot/*
 
 
 
