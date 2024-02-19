@@ -12,7 +12,7 @@ export class AuthInterceptor implements HttpInterceptor {
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
     // set url
-    const url = 'http://192.168.0.150:5278';
+    const url = 'http://localhost:5278';
     req = req.clone({
       url: url + req.url,
     });

@@ -15,12 +15,16 @@ namespace AnimalHealthBookApi.Controllers
     {
         private readonly AHBContext _context;
         private readonly UserService _userService;
+        private readonly FileService _fileService;
+
 
         public AnimalsController(
+            FileService fileService,
             AHBContext context,
             UserService userService
             )
         {
+            _fileService = fileService;
             _context = context;
             _userService = userService;
         }
@@ -47,6 +51,8 @@ namespace AnimalHealthBookApi.Controllers
               .Include(a => a.Breed)
               .Include(a => a.CoatColor)
               .Include(a => a.CoatType)
+              .Include(a => a.MainImage)
+              .Include(a => a.ProfileImage)
               .Where(a => a.Users.Contains(user))
               .ToListAsync();
 
@@ -67,6 +73,8 @@ namespace AnimalHealthBookApi.Controllers
                 .Include(a => a.Breed)
                 .Include(a => a.CoatColor)
                 .Include(a => a.CoatType)
+                .Include(a => a.MainImage)
+                .Include(a => a.ProfileImage)
                 .FirstOrDefaultAsync(a => a.Id == id);
 
             if (animal == null)
@@ -217,6 +225,84 @@ namespace AnimalHealthBookApi.Controllers
         private bool AnimalExists(Guid id)
         {
             return (_context.Animals?.Any(e => e.Id == id)).GetValueOrDefault();
+        }
+
+
+        [HttpPost("mainimage/{id}")]
+        public IActionResult UploadMainImage(Guid id ,[FromForm] UploadFile file)
+        {
+            if (file == null)
+            {
+                return BadRequest();
+            }
+            if (file.FormFile == null)
+            {
+                return BadRequest();
+            }
+            if (file.FormFile.Length == 0)
+            {
+                return BadRequest();
+            }
+            if (file.FormFile.Length > 1000000)
+            {
+                return BadRequest("File size is too big.");
+            }
+            if (file.FormFile.ContentType != "image/jpeg" && file.FormFile.ContentType != "image/png")
+            {
+                return BadRequest("File type not supported.");
+            }
+
+            Animal animal = _context.Animals.Find(id);
+            if(animal == null)
+            {
+                return NotFound();
+            }
+
+            var savedFile = _fileService.Save(file);
+
+            animal.MainImage = savedFile;
+
+            _context.SaveChanges();
+
+            return Ok(savedFile);
+        }
+
+        [HttpPost("profileimage/{id}")]
+        public IActionResult UploadProfileImage(Guid id ,[FromForm] UploadFile file)
+        {
+            if (file == null)
+            {
+                return BadRequest();
+            }
+            if (file.FormFile == null)
+            {
+                return BadRequest();
+            }
+            if (file.FormFile.Length == 0)
+            {
+                return BadRequest();
+            }
+            if (file.FormFile.Length > 1000000)
+            {
+                return BadRequest("File size is too big.");
+            }
+            if (file.FormFile.ContentType != "image/jpeg" && file.FormFile.ContentType != "image/png")
+            {
+                return BadRequest("File type not supported.");
+            }
+            Animal animal = _context.Animals.Find(id);
+            if (animal == null)
+            {
+                return NotFound();
+            }
+
+            var savedFile = _fileService.Save(file);
+
+            animal.ProfileImage = savedFile;
+
+            _context.SaveChanges();
+
+            return Ok(savedFile);
         }
     }
 }

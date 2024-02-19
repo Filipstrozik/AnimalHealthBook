@@ -1,12 +1,15 @@
 <div class="animal-details-container" *ngIf="animal">
   <div class="main-container">
     <div class="header-container mat-app-background">
-      <h1>{{ animal.name }}</h1>
-      <img
-        class="image"
-        src="https://material.angular.io/assets/img/examples/shiba2.jpg"
-        alt="Photo of a Shiba Inu"
-      />
+      <div class="tab-row">
+        <img
+          mat-card-avatar
+          [src]="profileImageUrl"
+          class="example-header-image"
+        />
+        <h1>{{ animal.name }}</h1>
+      </div>
+      <img class="image" [src]="mainImageUrl" alt="Photo of a Shiba Inu" />
     </div>
 
     <div class="quick-info-container">

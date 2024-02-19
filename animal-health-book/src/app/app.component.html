@@ -4,8 +4,16 @@
   </button>
   <span class="example-spacer"></span>
   <mat-icon>pets</mat-icon>
-  <span>Animal Health Book</span>
+  <span>Petsy</span>
   <span class="example-spacer"></span>
+
+  <span class="toggle-icon">
+    <button mat-icon-button (click)="toggleDarkMode()">
+      <mat-icon *ngIf="darkMode">brightness_3</mat-icon>
+      <mat-icon *ngIf="!darkMode">wb_sunny</mat-icon>
+    </button>
+  </span>
+
   <mat-icon>account_circle</mat-icon>
 
   <button mat-icon-button [matMenuTriggerFor]="themeMenu">

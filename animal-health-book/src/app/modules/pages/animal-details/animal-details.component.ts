@@ -36,8 +36,11 @@ export class AnimalDetailsComponent {
   route: ActivatedRoute = inject(ActivatedRoute);
   animalId: string = this.route.snapshot.paramMap.get('id')!;
 
+  mainImageUrl: string = '';
+  profileImageUrl: string = '';
+
   animal: Animal = null as any;
-  selected: Date | null = null;
+  selected: Date = null as any;
 
   constructor(
     private apiService: ApiRequestService,
@@ -48,11 +51,45 @@ export class AnimalDetailsComponent {
     this.apiService.getAnimal(this.animalId).subscribe(
       (res) => {
         this.animal = res;
+        this.loadImage();
       },
       (err) => {
         console.log(err);
       }
     );
+  }
+
+  loadImage(): void {
+    if (!this.animal.mainImageId) return;
+    this.apiService.getImage(this.animal.mainImageId).subscribe(
+      (data: Blob) => {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          // Convert the blob to a data URL and set it as the image source
+          this.mainImageUrl = reader.result as string;
+        };
+        reader.readAsDataURL(data);
+      },
+      (error) => {
+        console.error('Failed to load image', error);
+      }
+    );
+
+    if (this.animal.profileImageId) {
+      this.apiService.getImage(this.animal.profileImageId).subscribe(
+        (data: Blob) => {
+          const reader = new FileReader();
+          reader.onloadend = () => {
+            // Convert the blob to a data URL and set it as the image source
+            this.profileImageUrl = reader.result as string;
+          };
+          reader.readAsDataURL(data);
+        },
+        (error) => {
+          console.error('Failed to load image', error);
+        }
+      );
+    }
   }
 
   openAnimalDiaglog(): void {

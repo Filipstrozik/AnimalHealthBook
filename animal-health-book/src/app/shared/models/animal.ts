@@ -6,6 +6,7 @@ import { HealthNote } from './healthNote';
 import { Breed } from './breed';
 import { CoatColor } from './coatColor';
 import { CoatType } from './coatType';
+import { UploadFile } from './uploadFile';
 
 export interface Animal {
   id: string;
@@ -26,4 +27,8 @@ export interface Animal {
   microchipNumber: string | null;
   appointments: Appointment[];
   healthNotes: HealthNote[];
+  profileImageId?: string;
+  profileImage?: UploadFile;
+  mainImageId?: string;
+  mainImage?: UploadFile;
 }

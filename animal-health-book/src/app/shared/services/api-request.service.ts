@@ -26,6 +26,10 @@ export class ApiRequestService {
 
   // animals
 
+  getImage(id: string): Observable<Blob> {
+    return this.http.get('/api/files/' + id, { responseType: 'blob' });
+  }
+
   getAnimals(): Observable<Animal[]> {
     return this.http.get<Animal[]>('/api/animals');
   }

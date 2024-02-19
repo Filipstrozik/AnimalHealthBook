@@ -26,6 +26,7 @@ builder.Services.AddDbContext<AHBContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("AHB")));
 
 builder.Services.AddScoped<UserService>();
+builder.Services.AddScoped<FileService>();
 
 builder.Services.AddIdentity<User, Role>()
     .AddEntityFrameworkStores<AHBContext>()
@@ -58,7 +59,7 @@ builder.Services.AddCors(options =>
     options.AddDefaultPolicy(
         builder =>
         {
-            builder.WithOrigins("http://192.168.0.150:4200")
+            builder.AllowAnyOrigin()
                 .AllowAnyHeader()
                 .AllowAnyMethod();
         });
@@ -88,7 +89,8 @@ using (var scope = app.Services.CreateScope())
 }
 
 app.UseCors(options => {
-    options.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://192.168.0.150:4200");
+    //options.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://192.168.0.150:4200");
+    options.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin();
 });
 
 

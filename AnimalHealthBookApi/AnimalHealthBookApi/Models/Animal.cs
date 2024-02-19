@@ -1,4 +1,7 @@
-﻿namespace AnimalHealthBookApi.Models
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace AnimalHealthBookApi.Models
 {
     public class Animal
     {
@@ -35,6 +38,16 @@
         public virtual IEnumerable<Appointment> Appointments { get; set; }
 
         public virtual IEnumerable<HealthNote> HealthNotes { get; set; }
+
+        public Guid? ProfileImageId { get; set; }
+
+        [ForeignKey("ProfileImageId")]
+        public UploadFile? ProfileImage { get; set; }
+
+        public Guid? MainImageId { get; set; }
+
+        [ForeignKey("MainImageId")]
+        public UploadFile? MainImage { get; set; }
 
     }
 }

@@ -1,16 +1,12 @@
 <mat-card class="example-card" mat-ripple>
   <mat-card-header>
-    <div mat-card-avatar class="example-header-image"></div>
+    <img mat-card-avatar [src]="profileImageUrl" class="example-header-image" />
     <mat-card-title>{{ animal.name }}</mat-card-title>
     <mat-card-subtitle
       >{{ animal.animalType.name }} | {{ animal.breed.name }}
     </mat-card-subtitle>
   </mat-card-header>
-  <img
-    mat-card-image
-    src="https://material.angular.io/assets/img/examples/shiba2.jpg"
-    alt="Photo of a Shiba Inu"
-  />
+  <img mat-card-image [src]="imageUrl" alt="Image" />
   <!-- <mat-card-content>
 
   </mat-card-content> -->

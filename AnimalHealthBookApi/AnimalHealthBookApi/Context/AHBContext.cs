@@ -91,6 +91,15 @@ namespace AnimalHealthBookApi.Context
                 .HasForeignKey(h => h.AnimalId)
                 .OnDelete(DeleteBehavior.NoAction);
 
+            modelBuilder.Entity<Animal>()
+                .HasOne(a => a.MainImage)
+                .WithMany()
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<Animal>()
+                .HasOne(a => a.ProfileImage)
+                .WithMany()
+                .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<Animal>()
                 .HasMany(a => a.Users)
