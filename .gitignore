@@ -45,6 +45,7 @@ Ankh.NoLoad
 ./AnimalHealthBookApi/AnimalHealthBookApi/bin
 ./AnimalHealthBookApi/AnimalHealthBookApi/wwwroot/*
 
+AnimalHealthBookApi/AnimalHealthBookApi/wwwroot/**
 
 
 # .NET Core
