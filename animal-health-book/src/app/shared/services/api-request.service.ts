@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Animal } from '../models/animal';
@@ -14,6 +14,12 @@ import { CoatType } from '../models/coatType';
 })
 export class ApiRequestService {
   constructor(private http: HttpClient) {}
+
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'multipart/form-data',
+    }),
+  };
   //authentication
 
   login(data: LoginDto): Observable<any> {
@@ -28,6 +34,14 @@ export class ApiRequestService {
 
   getImage(id: string): Observable<Blob> {
     return this.http.get('/api/files/' + id, { responseType: 'blob' });
+  }
+
+  postMainImage(id: string, data: FormData): Observable<any> {
+    return this.http.post('/api/animals/mainimage/' + id, data);
+  }
+
+  postProfileImage(id: string, data: FormData): Observable<any> {
+    return this.http.post('/api/animals/profileimage/' + id, data);
   }
 
   getAnimals(): Observable<Animal[]> {

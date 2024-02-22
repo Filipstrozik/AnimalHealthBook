@@ -2,14 +2,20 @@
   <div class="main-container">
     <div class="header-container mat-app-background">
       <div class="tab-row">
+        <h1>{{ animal.name }}</h1>
         <img
-          mat-card-avatar
           [src]="profileImageUrl"
           class="example-header-image"
+          (click)="openFileUploadDialog('profile')"
+          class="example-header-image"
         />
-        <h1>{{ animal.name }}</h1>
       </div>
-      <img class="image" [src]="mainImageUrl" alt="Photo of a Shiba Inu" />
+      <img
+        class="image"
+        [src]="mainImageUrl"
+        alt="Photo of a pet"
+        (click)="openFileUploadDialog('main')"
+      />
     </div>
 
     <div class="quick-info-container">
@@ -96,6 +102,8 @@
     </mat-tab>
   </mat-tab-group>
   <div class="button-container">
-    <button mat-raised-button color="warn">Delete Animal</button>
+    <button mat-raised-button color="warn" (click)="deleteAnimal()">
+      Delete Animal
+    </button>
   </div>
 </div>

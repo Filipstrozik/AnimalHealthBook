@@ -1,0 +1,14 @@
+<h2 mat-dialog-title>Upload File</h2>
+<div mat-dialog-content>
+  <input type="file" (change)="onFileSelected($event)" />
+  <input
+    matInput
+    placeholder="File Name"
+    [(ngModel)]="uploadedFileName"
+    (change)="onFileNameChanged(uploadedFileName)"
+  />
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onCloseClick()">Close</button>
+  <button mat-button color="primary" (click)="onSubmit()">Submit</button>
+</div>

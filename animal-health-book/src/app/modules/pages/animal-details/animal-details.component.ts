@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Route, Router } from '@angular/router';
 import { Animal } from '../../../shared/models/animal';
 import { ApiRequestService } from '../../../shared/services/api-request.service';
 import { CommonModule } from '@angular/common';
@@ -14,6 +14,9 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { NativeDateAdapter } from '@angular/material/core';
 import { DocumentsComponent } from '../../../shared/components/documents/documents.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { FileUploadDialogComponent } from '../../../shared/components/file-upload-dialog/file-upload-dialog.component';
+
 @Component({
   selector: 'app-animal-details',
   standalone: true,
@@ -44,10 +47,16 @@ export class AnimalDetailsComponent {
 
   constructor(
     private apiService: ApiRequestService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private snackBar: MatSnackBar,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
+    this.loadAnimal();
+  }
+
+  loadAnimal(): void {
     this.apiService.getAnimal(this.animalId).subscribe(
       (res) => {
         this.animal = res;
@@ -65,7 +74,6 @@ export class AnimalDetailsComponent {
       (data: Blob) => {
         const reader = new FileReader();
         reader.onloadend = () => {
-          // Convert the blob to a data URL and set it as the image source
           this.mainImageUrl = reader.result as string;
         };
         reader.readAsDataURL(data);
@@ -80,7 +88,6 @@ export class AnimalDetailsComponent {
         (data: Blob) => {
           const reader = new FileReader();
           reader.onloadend = () => {
-            // Convert the blob to a data URL and set it as the image source
             this.profileImageUrl = reader.result as string;
           };
           reader.readAsDataURL(data);
@@ -129,5 +136,34 @@ export class AnimalDetailsComponent {
         }
       });
     }
+  }
+
+  deleteAnimal(): void {
+    this.apiService.deleteAnimal(this.animalId).subscribe(
+      (res) => {
+        this.router.navigate(['/animals']);
+
+        this.snackBar.open('Animal deleted', 'Close', {
+          duration: 5000,
+        });
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
+
+  openFileUploadDialog(type: string): void {
+    const dialogRef = this.dialog.open(FileUploadDialogComponent, {
+      width: 'auto', // adjust the width as needed
+      data: {
+        animal: this.animal,
+        type: type,
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      this.loadAnimal();
+    });
   }
 }

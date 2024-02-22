@@ -6,7 +6,10 @@
 .image {
     width: 100%;
     max-width: 20rem;
+}
 
+.image:hover {
+        cursor: pointer;
 }
 
 .main-container{
@@ -17,6 +20,19 @@
 
     .header-container {
         min-width: 20rem;
+
+
+        .example-header-image:hover {
+            cursor: pointer;
+
+        }
+        .example-header-image {
+                height: 40px;
+                width: 40px;
+                border-radius: 50%;
+                flex-shrink: 0;
+                object-fit: cover;
+        }
     }
 
     .quick-info-container {
